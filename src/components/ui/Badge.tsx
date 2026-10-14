@@ -1,9 +1,10 @@
 import type { HTMLAttributes } from 'react';
 import { cn } from '../../lib/cn';
 
-type Variant = 'accent' | 'accent-outline' | 'neutral' | 'success' | 'rest' | 'danger';
+type Variant = 'group' | 'accent' | 'accent-outline' | 'neutral' | 'success' | 'rest' | 'danger';
 
 const variants: Record<Variant, string> = {
+  group: 'bg-surface-container-high text-accent',
   accent: 'bg-accent text-on-accent',
   'accent-outline': 'border border-accent text-accent',
   neutral: 'bg-surface-container-high text-muted',

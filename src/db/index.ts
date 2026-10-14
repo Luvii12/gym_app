@@ -8,3 +8,4 @@ export {
   type SeedExercise,
 } from './exercises';
 export { seedCatalog } from './seed';
+export { useExercises } from './hooks';

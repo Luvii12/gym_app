@@ -54,7 +54,7 @@ Marca `[x]` al terminar cada tarea. Cualquier idea nueva va al **Backlog**, no a
 - [x] F2.1 Tipos de dominio (`Exercise` con grupo muscular, músculos trabajados y equipamiento; `Routine`, `RoutineDay`, `WorkoutSession`, `LoggedSet`) en `src/domain/`
 - [x] F2.2 Esquema Dexie v1 + repositorios en `src/db/` (única puerta a IndexedDB) con tests sobre `fake-indexeddb`
 - [x] F2.3 Catálogo semilla (~60-80 ejercicios en español) con la skill `seed-exercises`; carga inicial idempotente
-- [ ] F2.4 Pantalla Ejercicios: buscador, filtros por grupo muscular y tarjetas con etiquetas "Predeterminado" / "Personalizado"
+- [x] F2.4 Pantalla Ejercicios: buscador, filtros por grupo muscular y tarjetas con etiquetas "Predeterminado" / "Personalizado"
 - [ ] F2.5 Botón "Nuevo ejercicio": crear, editar y borrar personalizados (los de la semilla no se borran)
 
 **Criterio de hecho:** abrir la app por primera vez muestra el catálogo; crear un ejercicio propio sobrevive a recargar; tests de `db/` en verde.
@@ -135,3 +135,4 @@ Barra cargada que muestra los discos a medida que haces series (idea de la propu
 - 2026-10-14 — F2.1: los grupos musculares siguen los filtros del prototipo (pecho, espalda, hombros, brazos, piernas, core, cardio) en vez de la lista más fina anterior; los músculos concretos van en un texto libre por ejercicio. Los valores guardados son identificadores en inglés (`chest`, `barbell`…) con etiquetas en español. Una serie sin `completedAt` es una serie prevista aún sin hacer.
 - 2026-10-14 — F2.2: esquema Dexie v1 con las cuatro tablas (ejercicios, rutinas, sesiones, ajustes) y repositorio de ejercicios. Los repositorios de rutinas y sesiones llegan con F3.2 y F4. `isCustom` no se indexa porque IndexedDB no admite booleanos como clave. Dos reglas de ESLint hacen cumplir la arquitectura: solo `src/db/` importa Dexie y `src/domain/` no importa React ni datos.
 - 2026-10-14 — F2.3: catálogo semilla de 67 ejercicios (pecho 10, espalda 11, hombros 10, brazos 12, piernas 16, core 8) en `src/data/exercises.ts`, tipado para que un valor inválido rompa el `typecheck`. No incluye cardio, porque la app registra peso y repeticiones y no tiempo ni distancia. Se carga en cada arranque con `seedCatalog` (idempotente).
+- 2026-10-14 — F2.4: pantalla Ejercicios con buscador (ignora tildes y busca en nombre, músculos y equipamiento), chips de grupo (solo los que tienen ejercicios) y tarjetas. Desviaciones del prototipo: las tarjetas no llevan chevron, PR ni "Último" hasta que existan datos (F5); el recuento es texto pequeño ("67 ejercicios") en lugar de "142 ACTIVOS"; el catálogo va en orden alfabético.
