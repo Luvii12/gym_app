@@ -1,12 +1,17 @@
+import { useState } from 'react';
 import { ChevronRight, History, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router';
 import { Card, EmptyState } from '../../components/ui';
 import { PageHeader } from '../../components/PageHeader';
-import { useFinishedSessions } from '../../db';
+import { useAllExercises, useFinishedSessions } from '../../db';
+import { OneRepMaxCard } from './OneRepMaxCard';
+import { WeeklyVolumeCard } from './WeeklyVolumeCard';
 
 export function ProgressPage() {
   const sessions = useFinishedSessions();
+  const exercises = useAllExercises();
   const count = sessions?.length ?? 0;
+  const now = useState(() => Date.now())[0];
 
   return (
     <>
@@ -23,6 +28,12 @@ export function ProgressPage() {
           <ChevronRight aria-hidden size={20} className="shrink-0 text-muted" />
         </Card>
       </Link>
+      {sessions && exercises && count > 0 && (
+        <>
+          <OneRepMaxCard sessions={sessions} exercises={exercises} now={now} />
+          <WeeklyVolumeCard sessions={sessions} now={now} />
+        </>
+      )}
       {count === 0 && (
         <EmptyState
           icon={TrendingUp}
