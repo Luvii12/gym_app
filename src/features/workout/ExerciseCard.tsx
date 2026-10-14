@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button, Card, Sheet } from '../../components/ui';
 import {
   MUSCLE_GROUP_LABELS,
+  isNewRecord,
   nextPendingSet,
   setsOf,
   targetOf,
@@ -18,6 +19,8 @@ export interface ExerciseCardProps {
   /** `undefined` si el ejercicio ya no está en el catálogo. */
   exercise?: Exercise;
   last?: LastPerformance;
+  /** Entrenos terminados: sirve para marcar las series que baten el récord. */
+  history?: readonly WorkoutSession[];
   onChangeSet: (setIndex: number, changes: { weightKg?: number; reps?: number }) => void;
   onToggleSet: (setIndex: number) => void;
   onAddSet: () => void;
@@ -29,6 +32,7 @@ export function ExerciseCard({
   exerciseId,
   exercise,
   last,
+  history,
   onChangeSet,
   onToggleSet,
   onAddSet,
@@ -75,6 +79,9 @@ export function ExerciseCard({
             set={set}
             isCurrent={current?.setIndex === set.setIndex}
             target={target}
+            isRecord={
+              history !== undefined && set.completedAt !== undefined && isNewRecord(history, set)
+            }
             {...(last ? { last } : {})}
             onChange={(changes) => onChangeSet(set.setIndex, changes)}
             onToggle={() => onToggleSet(set.setIndex)}

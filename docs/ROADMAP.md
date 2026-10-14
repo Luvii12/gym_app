@@ -90,15 +90,15 @@ Marca `[x]` al terminar cada tarea. Cualquier idea nueva va al **Backlog**, no a
 
 **Criterio de hecho:** E2E en móvil de un entreno completo (empezar → registrar series → descanso → terminar) y de la reanudación tras recargar; ninguna pérdida de datos al cerrar la app.
 
-## F5 — Historial y progreso
+## F5 — Historial y progreso ✅
 
 **Objetivo:** ver que estás mejorando. Pantalla de referencia: `6._progreso_y_ajustes`.
 
 - [x] F5.1 Dominio con tests: 1RM estimado (Epley), PR por ejercicio y su mejora respecto al anterior, volumen por sesión y por semana, racha de semanas
 - [x] F5.2 Historial: lista de sesiones y detalle; editar o borrar una sesión
 - [x] F5.3 Progreso: gráfica del 1RM por ejercicio (selector, récord actual, pico, variación a 3 meses) y volumen semanal con la mejor semana resaltada (Recharts)
-- [ ] F5.4 Tarjetas de récords personales por grupo muscular, con "hace N días"
-- [ ] F5.5 En **Hoy**: "Último entreno" (duración, volumen, PR destacado) y "Racha de N semanas"; PR marcados al terminar una serie
+- [x] F5.4 Tarjetas de récords personales por grupo muscular, con "hace N días"
+- [x] F5.5 En **Hoy**: "Último entreno" (duración, volumen, PR destacado) y "Racha de N semanas"; PR marcados al terminar una serie
 
 **Criterio de hecho:** con datos de varias semanas (seed de prueba), las gráficas, los PR y la racha coinciden con el cálculo manual de los tests.
 
@@ -145,3 +145,4 @@ Barra cargada que muestra los discos a medida que haces series (idea de la propu
 - 2026-10-14 — F5.1: dominio de progreso en `src/domain/progress.ts` (27 tests). Decisiones: Epley con 1 repetición = el propio peso; solo cuentan sesiones terminadas y series hechas; las semanas empiezan el lunes (hora local); la variación del 1RM compara el mejor actual con el mejor de hace 3 meses (sin datos anteriores, no hay variación); un empate de récord conserva la fecha del primero; la primera vez con un ejercicio no es PR (`isNewRecord`); la racha cuenta semanas seguidas con ≥ `daysPerWeek` entrenos y la semana en curso sin cumplir no la rompe.
 - 2026-10-14 — F5.2: historial en `/progreso/historial` (lista) y `/progreso/historial/:sessionId` (detalle), con tarjeta de acceso en Progreso (el prototipo no tiene pantalla de historial). Se puede editar peso y repeticiones de cada serie (guarda al momento), quitar series o ejercicios y borrar el entreno con confirmación; si se queda sin series se ofrece borrarlo. Dominio nuevo: `sessionDuration` y `deleteLoggedSet`; hook `useSession`. Pendiente: no hay E2E del historial todavía.
 - 2026-10-14 — F5.3: Progreso con la gráfica de área del 1RM por ejercicio (selector con los ejercicios con historial, récord actual, pico, variación a 3 meses) y el volumen semanal de las últimas 8 semanas con la mejor resaltada ("MÁX"). Desviaciones: las barras de volumen son CSS, no Recharts; el selector es un `SelectField` nativo; la gráfica del 1RM va en un chunk aparte (`React.lazy`, ~93 kB gzip). Los récords por grupo muscular llegan con F5.4.
+- 2026-10-14 — F5.4 y F5.5: sección "Récords personales (PR)" en Progreso (una tarjeta por ejercicio, ordenada por grupo muscular, con mejora y "hace N días"; `formatDaysAgo` en `src/lib/`); en Hoy, "Último entreno" (duración, volumen, PR destacado vía `sessionRecords`) y "Racha de N semanas"; en el entreno, insignia y aviso "PR" al batir el 1RM del historial (derivado al pintar, no se guarda). Limitación: dentro de un mismo entreno, varias series que superan el récord anterior se marcan todas como PR. E2E `e2e/progress.spec.ts` con sesiones sembradas en IndexedDB que comprueba 1RM Epley, volumen, PR, historial y edición/borrado. **F5 completada.**

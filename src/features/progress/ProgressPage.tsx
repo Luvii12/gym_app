@@ -5,6 +5,7 @@ import { Card, EmptyState } from '../../components/ui';
 import { PageHeader } from '../../components/PageHeader';
 import { useAllExercises, useFinishedSessions } from '../../db';
 import { OneRepMaxCard } from './OneRepMaxCard';
+import { PersonalRecordsSection } from './PersonalRecordsSection';
 import { WeeklyVolumeCard } from './WeeklyVolumeCard';
 
 export function ProgressPage() {
@@ -32,6 +33,7 @@ export function ProgressPage() {
         <>
           <OneRepMaxCard sessions={sessions} exercises={exercises} now={now} />
           <WeeklyVolumeCard sessions={sessions} now={now} />
+          <PersonalRecordsSection sessions={sessions} exercises={exercises} now={now} />
         </>
       )}
       {count === 0 && (

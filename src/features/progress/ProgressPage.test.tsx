@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 import { db, sessionRepository } from '../../db';
@@ -68,13 +68,31 @@ describe('ProgressPage', () => {
     expect(await screen.findByText('Histórico de cargas (1RM)')).toBeVisible();
     expect(screen.getByText('+10 % (3 meses)')).toBeVisible();
     expect(screen.getByText('Récord actual estimado')).toBeVisible();
-    expect(screen.getByText('110')).toBeVisible();
+    expect(screen.getAllByText('110').length).toBeGreaterThan(0);
     expect(screen.getByText('Volumen semanal total')).toBeVisible();
     expect(screen.getByText('MÁX')).toBeVisible();
     expect(screen.queryByText('Todavía no hay datos')).toBeNull();
 
     await userEvent.selectOptions(screen.getByLabelText('Ejercicio'), 'squat');
-    expect(screen.getByText('140')).toBeVisible();
+    expect(screen.getAllByText('140').length).toBeGreaterThan(0);
     expect(screen.queryByText(/% \(3 meses\)/)).toBeNull();
+  });
+
+  it('muestra tarjetas de récords personales ordenadas por grupo', async () => {
+    const now = Date.now();
+    await sessionRepository.save(session('a', now - 20 * DAY, 'bench', 100));
+    await sessionRepository.save(session('b', now - 3 * DAY, 'bench', 103.5));
+    await sessionRepository.save(session('c', now - 10 * DAY, 'squat', 140));
+    renderPage();
+
+    expect(await screen.findByRole('heading', { name: 'Récords personales (PR)' })).toBeVisible();
+    const cards = screen.getAllByRole('listitem');
+    expect(cards).toHaveLength(2);
+    expect(within(cards[0]!).getByText('Press banca')).toBeVisible();
+    expect(within(cards[0]!).getByText('+3,5 kg')).toBeVisible();
+    expect(within(cards[0]!).getByText('hace 3 días')).toBeVisible();
+    expect(within(cards[1]!).getByText('Sentadilla')).toBeVisible();
+    expect(within(cards[1]!).getByText('hace 10 días')).toBeVisible();
+    expect(within(cards[1]!).queryByText(/^\+/)).toBeNull();
   });
 });

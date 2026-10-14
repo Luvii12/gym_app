@@ -7,6 +7,7 @@ import {
   addSet,
   exerciseOrder,
   finishSession,
+  isNewRecord,
   lastPerformances,
   removeExercise,
   sessionProgress,
@@ -34,6 +35,7 @@ import { useWakeLock } from './useWakeLock';
 import type { WorkoutSession } from '../../domain';
 
 const now = () => Date.now();
+const PR_TOAST_MS = 3000;
 
 export function WorkoutPage() {
   const session = useActiveSession();
@@ -54,8 +56,15 @@ function ActiveWorkout({ session }: { session: WorkoutSession }) {
   const [picking, setPicking] = useState(false);
   const [finishing, setFinishing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [prToast, setPrToast] = useState<string | null>(null);
 
   useWakeLock(true);
+
+  useEffect(() => {
+    if (!prToast) return;
+    const timer = setTimeout(() => setPrToast(null), PR_TOAST_MS);
+    return () => clearTimeout(timer);
+  }, [prToast]);
 
   // El descanso es de este entreno: al salir de la pantalla no debe quedar en marcha.
   useEffect(() => () => stopRest(), [stopRest]);
@@ -72,6 +81,11 @@ function ActiveWorkout({ session }: { session: WorkoutSession }) {
     const at = now();
     const next = edit((current) => toggleSet(current, exerciseId, setIndex, at));
     if (wasDone) return;
+    const logged = setsOf(next, exerciseId).find((s) => s.setIndex === setIndex);
+    if (logged && finished && isNewRecord(finished, logged)) {
+      const name = exercises?.find((e) => e.id === exerciseId)?.name ?? 'este ejercicio';
+      setPrToast(`¡Nuevo PR en ${name}!`);
+    }
     const restSec = targetOf(next, exerciseId).restSec;
     if (restSec > 0) startRest({ durationSec: restSec, exerciseId, setIndex, now: at });
     else stopRest();
@@ -115,6 +129,7 @@ function ActiveWorkout({ session }: { session: WorkoutSession }) {
               exerciseId={exerciseId}
               {...(exercise ? { exercise } : {})}
               {...(performance ? { last: performance } : {})}
+              history={finished}
               onChangeSet={(setIndex, changes) =>
                 edit((current) => updateSet(current, exerciseId, setIndex, changes))
               }
@@ -155,7 +170,7 @@ function ActiveWorkout({ session }: { session: WorkoutSession }) {
         />
       )}
       <RestHost session={session} exercises={exercises ?? []} />
-      <Toast message={error} />
+      <Toast message={error ?? prToast} />
     </div>
   );
 }

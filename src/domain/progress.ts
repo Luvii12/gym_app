@@ -190,3 +190,34 @@ export function weekStreak(
   }
   return streak;
 }
+
+/** Días naturales (hora local) entre un instante y `now`; 0 = hoy. */
+export function daysSince(timestamp: number, now: number): number {
+  const a = new Date(timestamp);
+  const b = new Date(now);
+  const dayA = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const dayB = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+  return Math.max(0, Math.round((dayB - dayA) / 86_400_000));
+}
+
+/**
+ * Récords que batió una sesión: ejercicios cuyo mejor 1RM de esa sesión supera todo lo anterior.
+ * El primer registro de un ejercicio no cuenta. Ordenados por mejora, de mayor a menor.
+ */
+export function sessionRecords(
+  sessions: readonly WorkoutSession[],
+  session: WorkoutSession,
+): (ExercisePoint & { exerciseId: string; improvement: number })[] {
+  const records: (ExercisePoint & { exerciseId: string; improvement: number })[] = [];
+  const ids = new Set(completedSets(session).map((set) => set.exerciseId));
+  for (const exerciseId of ids) {
+    const points = exerciseHistory(sessions, exerciseId);
+    const own = points.find((p) => p.sessionId === session.id);
+    if (!own) continue;
+    const before = points.filter((p) => p.at < own.at || (p.at === own.at && p !== own));
+    if (before.length === 0) continue;
+    const improvement = own.oneRepMax - Math.max(...before.map((p) => p.oneRepMax));
+    if (improvement > 0) records.push({ ...own, exerciseId, improvement });
+  }
+  return records.sort((a, b) => b.improvement - a.improvement);
+}

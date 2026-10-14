@@ -1,4 +1,4 @@
-import { Check } from 'lucide-react';
+import { Check, Trophy } from 'lucide-react';
 import { Stepper } from '../../components/ui';
 import {
   WEIGHT_STEP_KG,
@@ -17,6 +17,8 @@ export interface SetRowProps {
   isCurrent: boolean;
   target: SessionTarget;
   last?: LastPerformance;
+  /** La serie completada bate el récord de 1RM del ejercicio. */
+  isRecord?: boolean;
   onChange: (changes: { weightKg?: number; reps?: number }) => void;
   onToggle: () => void;
 }
@@ -27,6 +29,7 @@ export function SetRow({
   isCurrent,
   target,
   last,
+  isRecord = false,
   onChange,
   onToggle,
 }: SetRowProps) {
@@ -93,6 +96,12 @@ export function SetRow({
           <Check aria-hidden size={24} />
         </button>
       </div>
+      {done && isRecord && (
+        <p className="mt-1 flex items-center justify-center gap-1 text-label-lg text-accent">
+          <Trophy aria-hidden size={16} />
+          PR
+        </p>
+      )}
       {!done && (
         <div className="mt-1 grid grid-cols-[1.75rem_1fr_1fr_2.75rem] gap-2 text-center text-body-sm text-muted">
           <span />

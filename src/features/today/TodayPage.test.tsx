@@ -82,4 +82,36 @@ describe('TodayPage', () => {
     expect(active?.routineDayId).toBeUndefined();
     expect(active?.sets).toHaveLength(0);
   });
+
+  it('sin entrenos terminados no hay último entreno ni racha', async () => {
+    await routineRepository.create({ name: 'PPL', daysPerWeek: 1, days: [] });
+    renderPage();
+    await screen.findByRole('heading', { name: 'Listo para entrenar' });
+    expect(screen.queryByText('Último entreno')).toBeNull();
+    expect(screen.queryByText(/Racha de/)).toBeNull();
+  });
+
+  it('muestra el último entreno con su PR y la racha', async () => {
+    await routineRepository.create({ name: 'PPL', daysPerWeek: 1, days: [] });
+    const now = Date.now();
+    const make = (id: string, startedAt: number, weightKg: number) => ({
+      id,
+      name: id === 'old' ? 'Antiguo' : 'Push',
+      startedAt,
+      endedAt: startedAt + 45 * 60000,
+      sets: [{ exerciseId: 'bench', setIndex: 0, weightKg, reps: 1, completedAt: startedAt + 1 }],
+    });
+    await sessionRepository.save(make('old', now - 30 * 86400000, 100));
+    await sessionRepository.save(make('new', now, 103.5));
+    renderPage();
+
+    expect(await screen.findByText('Último entreno')).toBeVisible();
+    expect(screen.getByText(/PR · Press banca \+3,5 kg/)).toBeVisible();
+    expect(screen.getByText(/45 min/)).toBeVisible();
+    expect(screen.getByRole('link', { name: /Último entreno/ })).toHaveAttribute(
+      'href',
+      '/progreso/historial/new',
+    );
+    expect(screen.getByText('Racha de 1 semana')).toBeVisible();
+  });
 });

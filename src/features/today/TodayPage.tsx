@@ -6,6 +6,7 @@ import {
   isRestDay,
   lastPerformances,
   nextDay,
+  weekStreak,
   sessionProgress,
   startSession,
   type RoutineDay,
@@ -19,6 +20,7 @@ import {
   useFinishedSessions,
 } from '../../db';
 import { DayPickerSheet } from './DayPickerSheet';
+import { LastWorkoutCard } from './LastWorkoutCard';
 import { NextRoutineCard } from './NextRoutineCard';
 
 const TOAST_MS = 3000;
@@ -59,6 +61,7 @@ export function TodayPage() {
   const finished = useFinishedSessions();
   const exercises = useAllExercises();
   const [picking, setPicking] = useState(false);
+  const now = useState(() => Date.now())[0];
   const [toast, setToast] = useState<string | null>(
     (location.state as { toast?: string } | null)?.toast ?? null,
   );
@@ -146,6 +149,7 @@ export function TodayPage() {
     );
   }
 
+  const streak = routine ? weekStreak(finished, routine.daysPerWeek, now) : 0;
   const canPick = routine && routine.days.some((d) => !isRestDay(d));
 
   return (
@@ -156,6 +160,17 @@ export function TodayPage() {
         <p className="text-body-md text-muted">Mantén la sobrecarga progresiva en cada serie.</p>
       </header>
       {main}
+      {streak >= 1 && (
+        <p className="flex min-h-11 items-center gap-2 rounded-lg border border-surface-container-high bg-surface-container-low px-4 text-label-lg">
+          <Flame aria-hidden size={20} className="shrink-0 text-accent" />
+          <span className="tabular-nums">
+            Racha de {streak} {streak === 1 ? 'semana' : 'semanas'}
+          </span>
+        </p>
+      )}
+      {finished.length > 0 && (
+        <LastWorkoutCard finished={finished} exercises={exercises} now={now} />
+      )}
       {!session && (
         <div className="grid grid-cols-2 gap-3">
           {canPick && (

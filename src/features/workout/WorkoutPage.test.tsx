@@ -180,4 +180,51 @@ describe('WorkoutPage', () => {
     expect(await sessionRepository.getActive()).toBeUndefined();
     expect(await sessionRepository.listFinished()).toHaveLength(0);
   });
+
+  describe('récords', () => {
+    const doneSession = (weightKg: number) => ({
+      id: 'old',
+      name: 'Antiguo',
+      startedAt: 1000,
+      endedAt: 5000,
+      sets: [{ exerciseId: row.id, setIndex: 0, weightKg, reps: 1, completedAt: 2000 }],
+    });
+
+    it('marca PR y avisa al batir el récord', async () => {
+      await sessionRepository.save(doneSession(100));
+      await sessionRepository.save({
+        id: 's2',
+        name: 'Hoy',
+        startedAt: Date.now(),
+        sets: [{ exerciseId: row.id, setIndex: 0, weightKg: 105, reps: 1 }],
+      });
+      const user = userEvent.setup();
+      renderPage();
+      await user.click(
+        await screen.findByRole('button', { name: 'Completar serie 1 de Remo con barra' }),
+      );
+      expect(await screen.findByText('¡Nuevo PR en Remo con barra!')).toBeVisible();
+      expect(await screen.findByText('PR')).toBeVisible();
+      await user.click(screen.getByRole('button', { name: 'Desmarcar serie 1 de Remo con barra' }));
+      await waitFor(() => expect(screen.queryByText('PR')).toBeNull());
+    });
+
+    it('no marca PR al igualar el récord', async () => {
+      await sessionRepository.save(doneSession(100));
+      await sessionRepository.save({
+        id: 's2',
+        name: 'Hoy',
+        startedAt: Date.now(),
+        sets: [{ exerciseId: row.id, setIndex: 0, weightKg: 100, reps: 1 }],
+      });
+      const user = userEvent.setup();
+      renderPage();
+      await user.click(
+        await screen.findByRole('button', { name: 'Completar serie 1 de Remo con barra' }),
+      );
+      expect(await screen.findByText('1 / 1 series')).toBeVisible();
+      expect(screen.queryByText('PR')).toBeNull();
+      expect(screen.queryByText(/Nuevo PR/)).toBeNull();
+    });
+  });
 });

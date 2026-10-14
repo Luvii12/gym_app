@@ -1,9 +1,11 @@
 import {
+  daysSince,
   estimateOneRepMax,
   exerciseHistory,
   isNewRecord,
   oneRepMaxChange,
   personalRecords,
+  sessionRecords,
   sessionVolume,
   startOfWeek,
   weeklyVolume,
@@ -231,5 +233,34 @@ describe('weekStreak', () => {
       session(at(2026, 10, 6), []),
     ];
     expect(weekStreak(s, 1, at(2026, 10, 14))).toBe(0);
+  });
+});
+
+describe('daysSince', () => {
+  it('cuenta días naturales, no tramos de 24 h', () => {
+    expect(daysSince(at(2026, 10, 14, 23), at(2026, 10, 14, 1))).toBe(0);
+    expect(daysSince(at(2026, 10, 13, 23), at(2026, 10, 14, 1))).toBe(1);
+    expect(daysSince(at(2026, 10, 1), at(2026, 10, 14))).toBe(13);
+  });
+});
+
+describe('sessionRecords', () => {
+  const first = session(at(2026, 9, 1), [done(BENCH, 100, 5), done(SQUAT, 100, 5)]);
+  const second = session(at(2026, 9, 8), [done(BENCH, 105, 5), done(SQUAT, 110, 5)]);
+  const third = session(at(2026, 9, 15), [done(BENCH, 90, 5)]);
+  const all = [first, second, third];
+
+  it('lista los ejercicios que batieron su récord, el de más mejora primero', () => {
+    const records = sessionRecords(all, second);
+    expect(records.map((r) => r.exerciseId)).toEqual([SQUAT, BENCH]);
+    expect(records[0]!.improvement).toBeCloseTo(110 * (1 + 5 / 30) - 100 * (1 + 5 / 30), 5);
+  });
+
+  it('la primera sesión de un ejercicio no tiene récords', () => {
+    expect(sessionRecords(all, first)).toEqual([]);
+  });
+
+  it('una sesión peor que la anterior no bate nada', () => {
+    expect(sessionRecords(all, third)).toEqual([]);
   });
 });
