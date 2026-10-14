@@ -19,4 +19,39 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  // Arquitectura: solo src/db/ habla con IndexedDB; el dominio es puro.
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['src/db/**'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['dexie', 'dexie-*'],
+              message: 'Dexie solo se importa desde src/db/. Usa los repositorios.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/domain/**/*.{ts,tsx}'],
+    ignores: ['**/*.test.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['react', 'react-*', 'dexie', 'dexie-*', '../db', '../db/*'],
+              message: 'src/domain/ es lógica pura: sin React, Dexie ni acceso a datos.',
+            },
+          ],
+        },
+      ],
+    },
+  },
 ]);

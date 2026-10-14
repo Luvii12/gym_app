@@ -39,7 +39,8 @@ e2e/            tests Playwright
 ## Convenciones
 
 - Componentes funcionales, hooks, nada de clases. TS estricto, sin `any`.
-- Los componentes nunca importan Dexie directamente: usan repositorios de `src/db/`.
+- Los componentes nunca importan Dexie directamente: usan repositorios de `src/db/` (ESLint lo hace cumplir, igual que la pureza de `src/domain/`).
+- Cambios de esquema: nunca se edita `version(1)`; se añade `version(2)` en `src/db/database.ts`.
 - Mobile-first (≈390px), objetivos táctiles ≥ 44px, tema oscuro único.
 - **Diseño:** la referencia es `design/stitch/` (Kinetic Volt): `kinetic_volt/DESIGN.md` + una captura y un HTML por pantalla. Construye cada pantalla para que se parezca a su `screen.png`. Los HTML son solo referencia (usan CDN): no se copian tal cual ni se ejecutan en la app.
 - Tokens en `src/index.css` (`@theme` de Tailwind). Prohibido usar colores literales en componentes: solo tokens.
