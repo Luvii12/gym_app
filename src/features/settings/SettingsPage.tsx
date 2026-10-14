@@ -1,9 +1,11 @@
-import { Download, HardDrive, Trash2, Upload } from 'lucide-react';
+import { Download, HardDrive, ShieldAlert, ShieldCheck, Trash2, Upload } from 'lucide-react';
 import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { Button, Card, Sheet, Toast } from '../../components/ui';
 import { PageHeader } from '../../components/PageHeader';
 import { backupRepository, useWorkoutCount } from '../../db';
 import { parseBackup, summarizeBackup, type Backup } from '../../domain';
+
+import { persistenceState, requestPersistence, type PersistenceState } from '../../lib/storage';
 
 const TOAST_MS = 3000;
 
@@ -44,6 +46,19 @@ export function SettingsPage() {
   const [confirmClear, setConfirmClear] = useState(false);
   const [busy, setBusy] = useState(false);
   const [sheetError, setSheetError] = useState<string | null>(null);
+  const [persistence, setPersistence] = useState<PersistenceState | null>(null);
+
+  useEffect(() => {
+    void persistenceState().then(setPersistence);
+  }, []);
+
+  async function protect() {
+    const next = await requestPersistence();
+    setPersistence(next);
+    if (next !== 'persisted') {
+      setToast('El navegador no ha concedido la protección. Exporta copias con frecuencia.');
+    }
+  }
 
   useEffect(() => {
     if (!toast) return;
@@ -136,6 +151,23 @@ export function SettingsPage() {
           <p className="text-label-lg tabular-nums">
             {count === undefined ? ' ' : workoutsLabel(count)}
           </p>
+          {persistence === 'persisted' && (
+            <p className="flex items-center gap-2 text-body-md text-muted">
+              <ShieldCheck aria-hidden className="size-5 shrink-0 text-success" />
+              Almacenamiento protegido: el navegador no borrará tus datos al faltar espacio.
+            </p>
+          )}
+          {persistence === 'best-effort' && (
+            <>
+              <p className="flex items-center gap-2 text-body-md text-muted">
+                <ShieldAlert aria-hidden className="size-5 shrink-0 text-rest" />
+                El navegador podría borrar los datos si le falta espacio.
+              </p>
+              <Button variant="secondary" fullWidth onClick={() => void protect()}>
+                Proteger mis datos
+              </Button>
+            </>
+          )}
         </Card>
 
         <Card className="flex flex-col gap-3 p-4">

@@ -145,3 +145,45 @@ describe('SettingsPage', () => {
     expect(await db.sessions.count()).toBe(3);
   });
 });
+
+describe('almacenamiento persistente', () => {
+  const original = Object.getOwnPropertyDescriptor(navigator, 'storage');
+  afterEach(() => {
+    if (original) Object.defineProperty(navigator, 'storage', original);
+    else Reflect.deleteProperty(navigator, 'storage');
+  });
+
+  function mockStorage(persisted: boolean, grants: boolean) {
+    Object.defineProperty(navigator, 'storage', {
+      configurable: true,
+      value: {
+        persisted: vi.fn().mockResolvedValue(persisted),
+        persist: vi.fn().mockResolvedValue(grants),
+      },
+    });
+  }
+
+  it('indica que está protegido cuando el navegador lo ha concedido', async () => {
+    mockStorage(true, true);
+    render(<SettingsPage />);
+    expect(await screen.findByText(/Almacenamiento protegido/)).toBeVisible();
+    expect(screen.queryByRole('button', { name: 'Proteger mis datos' })).toBeNull();
+  });
+
+  it('ofrece protegerlo y lo pide al pulsar', async () => {
+    mockStorage(false, true);
+    const user = userEvent.setup();
+    render(<SettingsPage />);
+    await user.click(await screen.findByRole('button', { name: 'Proteger mis datos' }));
+    expect(await screen.findByText(/Almacenamiento protegido/)).toBeVisible();
+  });
+
+  it('si el navegador lo deniega avisa y sigue ofreciéndolo', async () => {
+    mockStorage(false, false);
+    const user = userEvent.setup();
+    render(<SettingsPage />);
+    await user.click(await screen.findByRole('button', { name: 'Proteger mis datos' }));
+    expect(await screen.findByText(/no ha concedido la protección/)).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Proteger mis datos' })).toBeVisible();
+  });
+});
