@@ -1,4 +1,4 @@
-export type RepositoryErrorCode = 'not-found' | 'forbidden' | 'invalid';
+export type RepositoryErrorCode = 'not-found' | 'forbidden' | 'invalid' | 'duplicate';
 
 /** Error esperable de un repositorio: la UI decide qué mensaje enseñar según `code`. */
 export class RepositoryError extends Error {

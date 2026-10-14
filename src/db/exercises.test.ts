@@ -211,3 +211,165 @@ describe('seed', () => {
     expect(await repo.get(mine.id)).toEqual(mine);
   });
 });
+
+describe('nombres repetidos', () => {
+  it('no permite crear un ejercicio con el nombre de otro, ni con otras tildes o mayúsculas', async () => {
+    await repo.seed([bench]);
+    const sameAsSeed = await failure(
+      repo.create({
+        name: 'PRESS banca plano con barra',
+        muscleGroup: 'chest',
+        equipment: 'barbell',
+      }),
+    );
+    expect(sameAsSeed.code).toBe('duplicate');
+
+    await repo.create({ name: 'Curl Scott', muscleGroup: 'arms', equipment: 'barbell' });
+    const sameAsMine = await failure(
+      repo.create({ name: 'curl scott ', muscleGroup: 'arms', equipment: 'barbell' }),
+    );
+    expect(sameAsMine.code).toBe('duplicate');
+  });
+
+  it('al editar, puede conservar su propio nombre pero no usar el de otro', async () => {
+    const a = await repo.create({
+      name: 'Face pull',
+      muscleGroup: 'shoulders',
+      equipment: 'cable',
+    });
+    await repo.create({ name: 'Curl Scott', muscleGroup: 'arms', equipment: 'barbell' });
+
+    expect((await repo.update(a.id, { name: 'Face pull', muscleGroup: 'back' })).muscleGroup).toBe(
+      'back',
+    );
+    expect((await failure(repo.update(a.id, { name: 'Curl scott' }))).code).toBe('duplicate');
+  });
+
+  it('rechaza un nombre demasiado largo', async () => {
+    const error = await failure(
+      repo.create({ name: 'a'.repeat(61), muscleGroup: 'core', equipment: 'other' }),
+    );
+    expect(error.code).toBe('invalid');
+  });
+});
+
+describe('músculos opcionales', () => {
+  it('guarda el texto recortado y omite el campo si queda vacío', async () => {
+    const withText = await repo.create({
+      name: 'Con músculos',
+      muscleGroup: 'back',
+      equipment: 'cable',
+      muscles: '  Dorsal ancho ',
+    });
+    expect(withText.muscles).toBe('Dorsal ancho');
+
+    const blank = await repo.create({
+      name: 'Sin músculos',
+      muscleGroup: 'back',
+      equipment: 'cable',
+      muscles: '   ',
+    });
+    expect(blank).not.toHaveProperty('muscles');
+  });
+
+  it('se puede vaciar al editar', async () => {
+    const created = await repo.create({
+      name: 'Con músculos',
+      muscleGroup: 'back',
+      equipment: 'cable',
+      muscles: 'Dorsal ancho',
+    });
+    expect(await repo.update(created.id, { muscles: '' })).not.toHaveProperty('muscles');
+  });
+});
+
+describe('borrar o archivar', () => {
+  const mine = () =>
+    repo.create({ name: 'Face pull', muscleGroup: 'shoulders', equipment: 'cable' });
+
+  it('borra de verdad un ejercicio que no se usa en ningún sitio', async () => {
+    const created = await mine();
+    expect(await repo.remove(created.id)).toBe('deleted');
+    expect(await repo.get(created.id)).toBeUndefined();
+  });
+
+  it('archiva un ejercicio que está en una rutina', async () => {
+    const created = await mine();
+    await db.routines.add({
+      id: 'r1',
+      name: 'Push',
+      daysPerWeek: 3,
+      createdAt: 1,
+      days: [
+        {
+          id: 'd1',
+          name: 'A',
+          kind: 'training',
+          items: [{ exerciseId: created.id, sets: 3, repsMin: 8, repsMax: 10, restSec: 90 }],
+        },
+      ],
+    });
+
+    expect(await repo.remove(created.id)).toBe('archived');
+    expect((await repo.get(created.id))?.archivedAt).toBeGreaterThan(0);
+  });
+
+  it('archiva un ejercicio que está en el historial', async () => {
+    const created = await mine();
+    await db.sessions.add({
+      id: 's1',
+      name: 'Push A',
+      startedAt: 1,
+      endedAt: 2,
+      sets: [{ exerciseId: created.id, setIndex: 0, weightKg: 20, reps: 10, completedAt: 2 }],
+    });
+    expect(await repo.remove(created.id)).toBe('archived');
+  });
+
+  it('un archivado desaparece del catálogo y del recuento, pero su nombre sigue disponible', async () => {
+    const created = await mine();
+    await db.sessions.add({
+      id: 's1',
+      name: 'Push A',
+      startedAt: 1,
+      endedAt: 2,
+      sets: [{ exerciseId: created.id, setIndex: 0, weightKg: 20, reps: 10, completedAt: 2 }],
+    });
+    await repo.remove(created.id);
+
+    expect(await repo.list()).toEqual([]);
+    expect(await repo.count()).toBe(0);
+    expect((await repo.list({ includeArchived: true })).map((e) => e.id)).toEqual([created.id]);
+    expect((await repo.get(created.id))?.name).toBe('Face pull');
+  });
+
+  it('el nombre de un archivado se puede volver a usar', async () => {
+    const created = await mine();
+    await db.sessions.add({
+      id: 's1',
+      name: 'Push A',
+      startedAt: 1,
+      endedAt: 2,
+      sets: [{ exerciseId: created.id, setIndex: 0, weightKg: 20, reps: 10, completedAt: 2 }],
+    });
+    await repo.remove(created.id);
+
+    const again = await mine();
+    expect(again.id).not.toBe(created.id);
+  });
+
+  it('no se puede editar ni volver a borrar un archivado', async () => {
+    const created = await mine();
+    await db.sessions.add({
+      id: 's1',
+      name: 'Push A',
+      startedAt: 1,
+      endedAt: 2,
+      sets: [{ exerciseId: created.id, setIndex: 0, weightKg: 20, reps: 10, completedAt: 2 }],
+    });
+    await repo.remove(created.id);
+
+    expect((await failure(repo.update(created.id, { name: 'Otro' }))).code).toBe('not-found');
+    expect((await failure(repo.remove(created.id))).code).toBe('not-found');
+  });
+});

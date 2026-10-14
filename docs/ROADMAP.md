@@ -55,11 +55,11 @@ Marca `[x]` al terminar cada tarea. Cualquier idea nueva va al **Backlog**, no a
 - [x] F2.2 Esquema Dexie v1 + repositorios en `src/db/` (única puerta a IndexedDB) con tests sobre `fake-indexeddb`
 - [x] F2.3 Catálogo semilla (~60-80 ejercicios en español) con la skill `seed-exercises`; carga inicial idempotente
 - [x] F2.4 Pantalla Ejercicios: buscador, filtros por grupo muscular y tarjetas con etiquetas "Predeterminado" / "Personalizado"
-- [ ] F2.5 Botón "Nuevo ejercicio": crear, editar y borrar personalizados (los de la semilla no se borran)
+- [x] F2.5 Botón "Nuevo ejercicio": crear, editar y borrar personalizados (los de la semilla no se borran)
 
 **Criterio de hecho:** abrir la app por primera vez muestra el catálogo; crear un ejercicio propio sobrevive a recargar; tests de `db/` en verde.
 
-> **Decidir en F2.5:** qué pasa al borrar un ejercicio propio que ya aparece en rutinas o en el historial (bloquear el borrado, o archivarlo y ocultarlo del catálogo). Hoy el repositorio lo borra sin comprobarlo.
+> **Decidido en F2.5:** al borrar un ejercicio propio que ya aparece en una rutina o en el historial, se archiva (sale del catálogo y el historial conserva su nombre); si no se usa en ningún sitio, se borra de verdad.
 >
 > En las tarjetas, el PR y el "Último: 100 kg × 5" se muestran cuando hay sesiones registradas; se conectan en F5.
 
@@ -136,3 +136,4 @@ Barra cargada que muestra los discos a medida que haces series (idea de la propu
 - 2026-10-14 — F2.2: esquema Dexie v1 con las cuatro tablas (ejercicios, rutinas, sesiones, ajustes) y repositorio de ejercicios. Los repositorios de rutinas y sesiones llegan con F3.2 y F4. `isCustom` no se indexa porque IndexedDB no admite booleanos como clave. Dos reglas de ESLint hacen cumplir la arquitectura: solo `src/db/` importa Dexie y `src/domain/` no importa React ni datos.
 - 2026-10-14 — F2.3: catálogo semilla de 67 ejercicios (pecho 10, espalda 11, hombros 10, brazos 12, piernas 16, core 8) en `src/data/exercises.ts`, tipado para que un valor inválido rompa el `typecheck`. No incluye cardio, porque la app registra peso y repeticiones y no tiempo ni distancia. Se carga en cada arranque con `seedCatalog` (idempotente).
 - 2026-10-14 — F2.4: pantalla Ejercicios con buscador (ignora tildes y busca en nombre, músculos y equipamiento), chips de grupo (solo los que tienen ejercicios) y tarjetas. Desviaciones del prototipo: las tarjetas no llevan chevron, PR ni "Último" hasta que existan datos (F5); el recuento es texto pequeño ("67 ejercicios") en lugar de "142 ACTIVOS"; el catálogo va en orden alfabético.
+- 2026-10-14 — F2.5: crear, editar y borrar ejercicios propios. Botón flotante "Nuevo ejercicio", formulario en hoja inferior (nombre, grupo, equipamiento y músculos opcionales), validación en línea sin nombres repetidos (ignora tildes y mayúsculas) y confirmación de borrado dentro de la app. Borrar archiva si el ejercicio está en una rutina o en el historial. Solo los ejercicios propios tienen botón de editar. Pendiente para F6: al borrar el ejercicio desde cuya tarjeta se abrió la hoja, el foco no vuelve a un sitio concreto. **F2 completada.**

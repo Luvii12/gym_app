@@ -5,6 +5,7 @@ export {
   RepositoryError,
   type ExerciseRepository,
   type NewExercise,
+  type RemoveResult,
   type SeedExercise,
 } from './exercises';
 export { seedCatalog } from './seed';

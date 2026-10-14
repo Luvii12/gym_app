@@ -1,17 +1,20 @@
-import { Dumbbell, SearchX } from 'lucide-react';
-import { useState } from 'react';
-import { Button, Chip, EmptyState, SearchField } from '../../components/ui';
+import { Dumbbell, Plus, SearchX } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Button, Chip, EmptyState, SearchField, Toast } from '../../components/ui';
 import { PageHeader } from '../../components/PageHeader';
 import { useExercises } from '../../db';
 import {
   MUSCLE_GROUP_LABELS,
   filterExercises,
   groupsWithExercises,
+  type Exercise,
   type MuscleGroup,
 } from '../../domain';
 import { ExerciseCard } from './ExerciseCard';
+import { ExerciseSheet, type ExerciseSheetMode } from './ExerciseSheet';
 
 const SKELETON_COUNT = 5;
+const TOAST_MS = 3000;
 
 function ExerciseListSkeleton() {
   return (
@@ -30,6 +33,14 @@ export function ExercisesPage() {
   const exercises = useExercises();
   const [query, setQuery] = useState('');
   const [group, setGroup] = useState<MuscleGroup | null>(null);
+  const [sheet, setSheet] = useState<ExerciseSheetMode | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => setToast(null), TOAST_MS);
+    return () => clearTimeout(timer);
+  }, [toast]);
 
   const results = exercises ? filterExercises(exercises, { group, query }) : [];
   const groups = exercises ? groupsWithExercises(exercises) : [];
@@ -38,6 +49,15 @@ export function ExercisesPage() {
   function clearFilters() {
     setQuery('');
     setGroup(null);
+  }
+
+  function handleDone(message: string) {
+    setSheet(null);
+    setToast(message);
+  }
+
+  function handleEdit(exercise: Exercise) {
+    setSheet({ edit: exercise });
   }
 
   return (
@@ -93,12 +113,32 @@ export function ExercisesPage() {
           }
         />
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-3 pb-28">
           {results.map((exercise) => (
-            <ExerciseCard key={exercise.id} exercise={exercise} />
+            <ExerciseCard key={exercise.id} exercise={exercise} onEdit={handleEdit} />
           ))}
         </ul>
       )}
+
+      <Button
+        pill
+        size="lg"
+        onClick={() => setSheet('create')}
+        className="fixed right-4 bottom-[calc(4.25rem+env(safe-area-inset-bottom)+1rem)] z-30 shadow-overlay"
+      >
+        <Plus aria-hidden size={22} />
+        Nuevo ejercicio
+      </Button>
+
+      {sheet && (
+        <ExerciseSheet
+          mode={sheet}
+          exercises={exercises ?? []}
+          onClose={() => setSheet(null)}
+          onDone={handleDone}
+        />
+      )}
+      <Toast message={toast} />
     </>
   );
 }

@@ -262,3 +262,271 @@ describe('ExercisesPage', () => {
     expect(screen.getByRole('heading', { name: 'Pullover con polea' })).toBeInTheDocument();
   });
 });
+
+describe('ExercisesPage: crear, editar y borrar ejercicios propios', () => {
+  beforeEach(async () => {
+    await Promise.all([db.sessions.clear(), db.routines.clear()]);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  function fab() {
+    return screen.getByRole('button', { name: 'Nuevo ejercicio' });
+  }
+
+  function toast() {
+    return screen.getByRole('status');
+  }
+
+  async function createFromUi(
+    user: ReturnType<typeof userEvent.setup>,
+    name: string,
+    muscles?: string,
+  ) {
+    await user.click(fab());
+    const dialog = await screen.findByRole('dialog', { name: 'Nuevo ejercicio' });
+    await user.type(within(dialog).getByRole('textbox', { name: 'Nombre' }), name);
+    if (muscles) {
+      await user.type(
+        within(dialog).getByRole('textbox', { name: 'Músculos trabajados' }),
+        muscles,
+      );
+    }
+    await user.click(within(dialog).getByRole('button', { name: 'Crear ejercicio' }));
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+  }
+
+  it('el botón flotante "Nuevo ejercicio" abre la hoja de creación y Escape devuelve el foco al botón', async () => {
+    const user = userEvent.setup();
+    await renderLoaded();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+
+    await user.click(fab());
+
+    const dialog = await screen.findByRole('dialog', { name: 'Nuevo ejercicio' });
+    expect(within(dialog).getByRole('textbox', { name: 'Nombre' })).toHaveFocus();
+
+    await user.keyboard('{Escape}');
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    expect(fab()).toHaveFocus();
+    expect(within(toast()).queryByText(/./)).not.toBeInTheDocument();
+  });
+
+  it('crear un ejercicio lo añade a la lista como "Personalizado" y muestra el aviso "Ejercicio creado"', async () => {
+    const user = userEvent.setup();
+    await renderLoaded();
+
+    await createFromUi(user, 'Face pull con cuerda', 'Deltoides posterior');
+
+    await screen.findByText(countLabel(TOTAL + 1));
+    const card = screen.getByRole('heading', { name: 'Face pull con cuerda' }).closest('li')!;
+    expect(within(card).getByText('Personalizado')).toBeInTheDocument();
+    expect(within(card).getByText('Deltoides posterior')).toBeInTheDocument();
+    expect(toast()).toHaveTextContent('Ejercicio creado');
+    expect(fab()).toHaveFocus();
+    expect(await db.exercises.count()).toBe(TOTAL + 1);
+  });
+
+  it('el aviso desaparece solo a los 3 segundos', async () => {
+    const user = userEvent.setup();
+    await renderLoaded();
+
+    await createFromUi(user, 'Face pull con cuerda');
+    expect(toast()).toHaveTextContent('Ejercicio creado');
+
+    // Tiempo real (los falsos temporizadores bloquean waitFor/Dexie): se espera, sin pausas
+    // fijas, a que el aviso se retire, con margen sobre los 3 s.
+    await waitFor(() => expect(toast()).toBeEmptyDOMElement(), { timeout: 4500 });
+  }, 8000);
+
+  it('crear un nombre ya existente en el catálogo (otras tildes y mayúsculas) enseña el error y no crea nada', async () => {
+    const user = userEvent.setup();
+    await renderLoaded();
+
+    await user.click(fab());
+    const dialog = await screen.findByRole('dialog', { name: 'Nuevo ejercicio' });
+    await user.type(within(dialog).getByRole('textbox', { name: 'Nombre' }), 'JALON AL PECHO');
+    await user.click(within(dialog).getByRole('button', { name: 'Crear ejercicio' }));
+
+    expect(await within(dialog).findByText('Ya existe un ejercicio con ese nombre.')).toBeVisible();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(await db.exercises.count()).toBe(TOTAL);
+    expect(toast()).toBeEmptyDOMElement();
+  });
+
+  it('solo los ejercicios propios tienen botón "Editar …"; los predeterminados no', async () => {
+    await exerciseRepository.create({
+      name: 'Face pull con cuerda',
+      muscleGroup: 'shoulders',
+      equipment: 'cable',
+    });
+    await exerciseRepository.create({
+      name: 'Remo con banda',
+      muscleGroup: 'back',
+      equipment: 'band',
+    });
+    render(<ExercisesPage />);
+    await screen.findByText(countLabel(TOTAL + 2));
+
+    const editButtons = screen.getAllByRole('button', { name: /^Editar / });
+    expect(editButtons.map((b) => b.getAttribute('aria-label')).sort()).toEqual([
+      'Editar Face pull con cuerda',
+      'Editar Remo con banda',
+    ]);
+    expect(screen.queryByRole('button', { name: 'Editar Jalón al pecho' })).not.toBeInTheDocument();
+    const seeded = screen.getByRole('heading', { name: 'Jalón al pecho' }).closest('li')!;
+    expect(within(seeded).queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  it('el botón de editar mide al menos 44px (clase size-11) y no cambia el texto de la tarjeta', async () => {
+    await exerciseRepository.create({
+      name: 'Face pull con cuerda',
+      muscleGroup: 'shoulders',
+      equipment: 'cable',
+    });
+    render(<ExercisesPage />);
+    await screen.findByText(countLabel(TOTAL + 1));
+
+    expect(screen.getByRole('button', { name: 'Editar Face pull con cuerda' })).toHaveClass(
+      'size-11',
+    );
+    expect(screen.getByRole('heading', { name: 'Face pull con cuerda' })).toBeVisible();
+  });
+
+  it('editar desde la lista abre la hoja con los datos, guarda y actualiza la tarjeta', async () => {
+    const user = userEvent.setup();
+    await exerciseRepository.create({
+      name: 'Face pull con cuerda',
+      muscleGroup: 'shoulders',
+      equipment: 'cable',
+      muscles: 'Deltoides posterior',
+    });
+    render(<ExercisesPage />);
+    await screen.findByText(countLabel(TOTAL + 1));
+
+    await user.click(screen.getByRole('button', { name: 'Editar Face pull con cuerda' }));
+    const dialog = await screen.findByRole('dialog', { name: 'Editar ejercicio' });
+    const name = within(dialog).getByRole('textbox', { name: 'Nombre' });
+    expect(name).toHaveValue('Face pull con cuerda');
+    await user.clear(name);
+    await user.type(name, 'Face pull en polea alta');
+    await user.click(within(dialog).getByRole('button', { name: 'Guardar cambios' }));
+
+    await screen.findByRole('heading', { name: 'Face pull en polea alta' });
+    expect(screen.queryByRole('heading', { name: 'Face pull con cuerda' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(toast()).toHaveTextContent('Cambios guardados');
+    expect(screen.getByText(countLabel(TOTAL + 1))).toBeInTheDocument();
+    // El foco vuelve al elemento que abrió la hoja (el botón se re-pinta con otro nombre).
+    expect(document.body).not.toHaveFocus();
+  });
+
+  it('borrar desde la lista (con confirmación) lo quita de la lista y de la base', async () => {
+    const user = userEvent.setup();
+    await exerciseRepository.create({
+      name: 'Face pull con cuerda',
+      muscleGroup: 'shoulders',
+      equipment: 'cable',
+    });
+    render(<ExercisesPage />);
+    await screen.findByText(countLabel(TOTAL + 1));
+
+    await user.click(screen.getByRole('button', { name: 'Editar Face pull con cuerda' }));
+    await user.click(await screen.findByRole('button', { name: 'Borrar ejercicio' }));
+    await user.click(await screen.findByRole('button', { name: 'Borrar' }));
+
+    await screen.findByText(countLabel(TOTAL));
+    expect(screen.queryByRole('heading', { name: 'Face pull con cuerda' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(toast()).toHaveTextContent('Ejercicio borrado');
+    expect(await db.exercises.count()).toBe(TOTAL);
+  });
+
+  it('cancelar la confirmación de borrado no quita nada', async () => {
+    const user = userEvent.setup();
+    await exerciseRepository.create({
+      name: 'Face pull con cuerda',
+      muscleGroup: 'shoulders',
+      equipment: 'cable',
+    });
+    render(<ExercisesPage />);
+    await screen.findByText(countLabel(TOTAL + 1));
+
+    await user.click(screen.getByRole('button', { name: 'Editar Face pull con cuerda' }));
+    await user.click(await screen.findByRole('button', { name: 'Borrar ejercicio' }));
+    await user.click(await screen.findByRole('button', { name: 'Cancelar' }));
+    await user.click(await screen.findByRole('button', { name: 'Cerrar' }));
+
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    expect(screen.getByRole('heading', { name: 'Face pull con cuerda' })).toBeInTheDocument();
+    expect(toast()).toBeEmptyDOMElement();
+    expect(await db.exercises.count()).toBe(TOTAL + 1);
+  });
+
+  it('borrar un ejercicio usado en el historial lo oculta del catálogo, avisa y lo conserva archivado', async () => {
+    const user = userEvent.setup();
+    const mine = await exerciseRepository.create({
+      name: 'Face pull con cuerda',
+      muscleGroup: 'shoulders',
+      equipment: 'cable',
+    });
+    await db.sessions.add({
+      id: 's1',
+      name: 'Hombros',
+      startedAt: 1,
+      endedAt: 2,
+      sets: [{ exerciseId: mine.id, setIndex: 0, weightKg: 20, reps: 10, completedAt: 2 }],
+    });
+    render(<ExercisesPage />);
+    await screen.findByText(countLabel(TOTAL + 1));
+
+    await user.click(screen.getByRole('button', { name: 'Editar Face pull con cuerda' }));
+    await user.click(await screen.findByRole('button', { name: 'Borrar ejercicio' }));
+    await user.click(await screen.findByRole('button', { name: 'Borrar' }));
+
+    await screen.findByText(countLabel(TOTAL));
+    expect(screen.queryByRole('heading', { name: 'Face pull con cuerda' })).not.toBeInTheDocument();
+    expect(toast()).toHaveTextContent(
+      'Ejercicio quitado del catálogo. Se conserva en tu historial.',
+    );
+    expect((await db.exercises.get(mine.id))?.archivedAt).toBeGreaterThan(0);
+  });
+
+  it('el botón flotante sigue visible en "Sin resultados" y desde ahí se puede crear', async () => {
+    const user = userEvent.setup();
+    await renderLoaded();
+    await user.type(searchbox(), 'zzzz');
+    await screen.findByRole('heading', { name: 'Sin resultados' });
+
+    expect(fab()).toBeVisible();
+
+    await user.click(fab());
+    expect(await screen.findByRole('dialog', { name: 'Nuevo ejercicio' })).toBeInTheDocument();
+  });
+
+  it('el botón flotante está también con el catálogo vacío', async () => {
+    await db.exercises.clear();
+    render(<ExercisesPage />);
+    await screen.findByRole('heading', { name: 'Aún no hay ejercicios' });
+
+    expect(fab()).toBeVisible();
+  });
+
+  it('un ejercicio recién creado se encuentra con el buscador', async () => {
+    const user = userEvent.setup();
+    await renderLoaded();
+    await createFromUi(user, 'Face pull con cuerda');
+    await screen.findByText(countLabel(TOTAL + 1));
+
+    await user.type(searchbox(), 'face pull con cuerda');
+
+    await waitFor(() => expect(cardTitles()).toEqual(['Face pull con cuerda']));
+    expect(
+      within(
+        screen.getByRole('heading', { name: 'Face pull con cuerda' }).closest('li')!,
+      ).getByText('Personalizado'),
+    ).toBeInTheDocument();
+  });
+});

@@ -53,6 +53,11 @@ export interface Exercise {
   equipment: Equipment;
   /** Los de la semilla (`false`) no se pueden borrar; los creados por el usuario sí. */
   isCustom: boolean;
+  /**
+   * Un ejercicio propio que ya está en una rutina o en el historial no se borra: se archiva.
+   * Desaparece del catálogo pero el historial sigue mostrando su nombre.
+   */
+  archivedAt?: number;
 }
 
 /** Entrada del catálogo semilla: un ejercicio predeterminado, con su id estable. */
