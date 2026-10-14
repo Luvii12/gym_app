@@ -39,3 +39,32 @@ export function isSessionActive(session: WorkoutSession): boolean {
 export function completedSets(session: WorkoutSession): LoggedSet[] {
   return session.sets.filter((set) => set.completedAt !== undefined);
 }
+
+/** Duración en ms de una sesión terminada; `undefined` si sigue en curso. */
+export function sessionDuration(session: WorkoutSession): number | undefined {
+  return session.endedAt === undefined
+    ? undefined
+    : Math.max(0, session.endedAt - session.startedAt);
+}
+
+/**
+ * Quita una serie de una sesión ya hecha (a diferencia de `removeSet`, también las completadas).
+ * Las siguientes del ejercicio se renumeran; si era la última del ejercicio, desaparece con su objetivo.
+ */
+export function deleteLoggedSet(
+  session: WorkoutSession,
+  exerciseId: string,
+  setIndex: number,
+): WorkoutSession {
+  const exists = session.sets.some((s) => s.exerciseId === exerciseId && s.setIndex === setIndex);
+  if (!exists) return session;
+  const sets = session.sets
+    .filter((s) => !(s.exerciseId === exerciseId && s.setIndex === setIndex))
+    .map((s) =>
+      s.exerciseId === exerciseId && s.setIndex > setIndex ? { ...s, setIndex: s.setIndex - 1 } : s,
+    );
+  const targets = Object.fromEntries(
+    Object.entries(session.targets ?? {}).filter(([id]) => sets.some((s) => s.exerciseId === id)),
+  );
+  return { ...session, sets, targets };
+}

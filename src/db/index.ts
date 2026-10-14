@@ -25,4 +25,5 @@ export {
   useFinishedSessions,
   useRoutine,
   useRoutines,
+  useSession,
 } from './hooks';

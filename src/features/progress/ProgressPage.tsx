@@ -1,16 +1,35 @@
-import { TrendingUp } from 'lucide-react';
-import { EmptyState } from '../../components/ui';
+import { ChevronRight, History, TrendingUp } from 'lucide-react';
+import { Link } from 'react-router';
+import { Card, EmptyState } from '../../components/ui';
 import { PageHeader } from '../../components/PageHeader';
+import { useFinishedSessions } from '../../db';
 
 export function ProgressPage() {
+  const sessions = useFinishedSessions();
+  const count = sessions?.length ?? 0;
+
   return (
     <>
       <PageHeader title="Tu Progreso" />
-      <EmptyState
-        icon={TrendingUp}
-        title="Todavía no hay datos"
-        description="Registra tu primer entreno y verás aquí tu evolución."
-      />
+      <Link to="/progreso/historial" className="mb-4 block">
+        <Card className="flex items-center gap-3 p-4 active:bg-surface-container">
+          <History aria-hidden size={24} className="shrink-0 text-accent" />
+          <div className="min-w-0 flex-1">
+            <h2 className="text-headline-sm">Historial</h2>
+            <p className="text-body-md text-muted tabular-nums">
+              {count === 1 ? '1 entreno' : `${count} entrenos`}
+            </p>
+          </div>
+          <ChevronRight aria-hidden size={20} className="shrink-0 text-muted" />
+        </Card>
+      </Link>
+      {count === 0 && (
+        <EmptyState
+          icon={TrendingUp}
+          title="Todavía no hay datos"
+          description="Registra tu primer entreno y verás aquí tu evolución."
+        />
+      )}
     </>
   );
 }

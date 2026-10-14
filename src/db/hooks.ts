@@ -41,3 +41,8 @@ export function useActiveSession(): WorkoutSession | null | undefined {
 export function useFinishedSessions(): WorkoutSession[] | undefined {
   return useLiveQuery(() => sessionRepository.listFinished(), []);
 }
+
+/** Una sesión por id; `null` si no existe. `undefined` solo mientras responde la base. */
+export function useSession(id: string): WorkoutSession | null | undefined {
+  return useLiveQuery(async () => (await sessionRepository.get(id)) ?? null, [id]);
+}
