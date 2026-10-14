@@ -26,4 +26,6 @@ export {
   useRoutine,
   useRoutines,
   useSession,
+  useWorkoutCount,
 } from './hooks';
+export { backupRepository, createBackupRepository, type BackupRepository } from './backup';

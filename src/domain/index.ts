@@ -7,3 +7,4 @@ export * from './next-day';
 export * from './routine-item';
 export * from './workout';
 export * from './progress';
+export * from './backup';

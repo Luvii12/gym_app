@@ -1,5 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import type { Exercise, Routine, WorkoutSession } from '../domain';
+import { backupRepository } from './backup';
 import { exerciseRepository } from './exercises';
 import { routineRepository } from './routines';
 import { sessionRepository } from './sessions';
@@ -45,4 +46,9 @@ export function useFinishedSessions(): WorkoutSession[] | undefined {
 /** Una sesión por id; `null` si no existe. `undefined` solo mientras responde la base. */
 export function useSession(id: string): WorkoutSession | null | undefined {
   return useLiveQuery(async () => (await sessionRepository.get(id)) ?? null, [id]);
+}
+
+/** Entrenos terminados guardados en el dispositivo. */
+export function useWorkoutCount(): number | undefined {
+  return useLiveQuery(() => backupRepository.countWorkouts(), []);
 }
