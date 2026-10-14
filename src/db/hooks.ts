@@ -1,7 +1,8 @@
 import { useLiveQuery } from 'dexie-react-hooks';
-import type { Exercise, Routine } from '../domain';
+import type { Exercise, Routine, WorkoutSession } from '../domain';
 import { exerciseRepository } from './exercises';
 import { routineRepository } from './routines';
+import { sessionRepository } from './sessions';
 
 /** Ejercicios ordenados por nombre. `undefined` solo mientras responde la base por primera vez. */
 export function useExercises(): Exercise[] | undefined {
@@ -29,4 +30,14 @@ export function useActiveRoutine(): Routine | null | undefined {
 /** Una rutina por id; `null` si no existe. `undefined` solo mientras responde la base. */
 export function useRoutine(id: string): Routine | null | undefined {
   return useLiveQuery(async () => (await routineRepository.get(id)) ?? null, [id]);
+}
+
+/** La sesión en curso; `null` si no hay. `undefined` solo mientras responde la base. */
+export function useActiveSession(): WorkoutSession | null | undefined {
+  return useLiveQuery(async () => (await sessionRepository.getActive()) ?? null, []);
+}
+
+/** Sesiones terminadas, la más reciente primero. */
+export function useFinishedSessions(): WorkoutSession[] | undefined {
+  return useLiveQuery(() => sessionRepository.listFinished(), []);
 }

@@ -15,5 +15,14 @@ export {
   type RoutineChanges,
   type RoutineRepository,
 } from './routines';
+export { createSessionRepository, sessionRepository, type SessionRepository } from './sessions';
 export { seedCatalog } from './seed';
-export { useActiveRoutine, useAllExercises, useExercises, useRoutine, useRoutines } from './hooks';
+export {
+  useActiveRoutine,
+  useActiveSession,
+  useAllExercises,
+  useExercises,
+  useFinishedSessions,
+  useRoutine,
+  useRoutines,
+} from './hooks';

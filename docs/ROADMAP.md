@@ -75,18 +75,18 @@ Marca `[x]` al terminar cada tarea. Cualquier idea nueva va al **Backlog**, no a
 
 **Criterio de hecho:** puedes montar tu rutina real completa (p. ej. Push/Pull/Legs) en menos de 5 minutos, y `nextDay` está cubierta por tests.
 
-## F4 — Entreno activo (el corazón de la app)
+## F4 — Entreno activo (el corazón de la app) ✅
 
 **Objetivo:** registrar un entreno en el gym con el móvil en la mano, rápido y sin perder datos. Pantallas de referencia: `1._hoy_dashboard`, `2._entreno_activo`, `3._entreno_con_temporizador`.
 
-- [ ] F4.1 Pantalla **Hoy**: tarjeta "Siguiente rutina" (día propuesto por `nextDay`, ejercicios, series y rango de peso) con "Empezar entreno"; "Elegir otra" y "Entreno libre"
-- [ ] F4.2 Sesión en curso: cronómetro y nombre del día, barra de progreso general (7/16 series) y una tarjeta por ejercicio con sus series
-- [ ] F4.3 Fila de serie: pesos y repeticiones con steppers, "Última vez" y "Objetivo" como ayuda, casilla de completar (la serie hecha se atenúa y tacha)
-- [ ] F4.4 Añadir serie, añadir ejercicio al vuelo, quitar ejercicio (menú ⋮)
-- [ ] F4.5 Descanso automático al completar una serie: banner inferior con cuenta atrás, "+30 s" y "Saltar"; hoja completa con −15 s / +15 s / +30 s y "Siguiente: Serie 3"
-- [ ] F4.6 Aviso al acabar el descanso: vibración y sonido, ambos activables
-- [ ] F4.7 Persistencia continua: cada serie se guarda al momento; si cierras la app, se **reanuda** la sesión
-- [ ] F4.8 Terminar o descartar sesión; mantener la pantalla encendida durante el entreno (Wake Lock, con degradación si no existe)
+- [x] F4.1 Pantalla **Hoy**: tarjeta "Siguiente rutina" (día propuesto por `nextDay`, ejercicios, series y rango de peso) con "Empezar entreno"; "Elegir otra" y "Entreno libre"
+- [x] F4.2 Sesión en curso: cronómetro y nombre del día, barra de progreso general (7/16 series) y una tarjeta por ejercicio con sus series
+- [x] F4.3 Fila de serie: pesos y repeticiones con steppers, "Última vez" y "Objetivo" como ayuda, casilla de completar (la serie hecha se atenúa y tacha)
+- [x] F4.4 Añadir serie, añadir ejercicio al vuelo, quitar ejercicio (menú ⋮)
+- [x] F4.5 Descanso automático al completar una serie: banner inferior con cuenta atrás, "+30 s" y "Saltar"; hoja completa con −15 s / +15 s / +30 s y "Siguiente: Serie 3"
+- [x] F4.6 Aviso al acabar el descanso: vibración y sonido, ambos activables
+- [x] F4.7 Persistencia continua: cada serie se guarda al momento; si cierras la app, se **reanuda** la sesión
+- [x] F4.8 Terminar o descartar sesión; mantener la pantalla encendida durante el entreno (Wake Lock, con degradación si no existe)
 
 **Criterio de hecho:** E2E en móvil de un entreno completo (empezar → registrar series → descanso → terminar) y de la reanudación tras recargar; ninguna pérdida de datos al cerrar la app.
 

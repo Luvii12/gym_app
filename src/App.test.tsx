@@ -12,7 +12,7 @@ function renderAt(path: string) {
 }
 
 describe('navegación', () => {
-  it('abre en Hoy con la marca y las 4 pestañas', () => {
+  it('abre en Hoy con la marca y las 4 pestañas', async () => {
     renderAt('/');
     expect(screen.getByRole('link', { name: /gym routine/i })).toBeInTheDocument();
     const nav = screen.getByRole('navigation', { name: 'Principal' });
@@ -21,7 +21,7 @@ describe('navegación', () => {
         .getAllByRole('link')
         .map((l) => l.textContent),
     ).toEqual(['Hoy', 'Rutinas', 'Ejercicios', 'Progreso']);
-    expect(screen.getByRole('heading', { name: 'Sin rutina activa' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Sin rutina activa' })).toBeInTheDocument();
   });
 
   it('marca la pestaña actual', () => {
@@ -50,12 +50,12 @@ describe('navegación', () => {
 
   it('"Crear rutina" lleva a Rutinas', async () => {
     renderAt('/');
-    await userEvent.click(screen.getByRole('button', { name: 'Crear rutina' }));
+    await userEvent.click(await screen.findByRole('button', { name: 'Crear rutina' }));
     expect(screen.getByRole('heading', { name: 'Mis Rutinas' })).toBeInTheDocument();
   });
 
-  it('una ruta desconocida vuelve a Hoy', () => {
+  it('una ruta desconocida vuelve a Hoy', async () => {
     renderAt('/no-existe');
-    expect(screen.getByRole('heading', { name: 'Sin rutina activa' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Sin rutina activa' })).toBeInTheDocument();
   });
 });

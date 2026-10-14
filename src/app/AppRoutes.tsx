@@ -5,12 +5,14 @@ import { RoutineDayEditorPage } from '../features/routines/RoutineDayEditorPage'
 import { RoutineEditorPage } from '../features/routines/RoutineEditorPage';
 import { RoutinesPage } from '../features/routines/RoutinesPage';
 import { SettingsPage } from '../features/settings/SettingsPage';
+import { WorkoutPage } from '../features/workout/WorkoutPage';
 import { TodayPage } from '../features/today/TodayPage';
 import { Layout } from './Layout';
 
 export function AppRoutes() {
   return (
     <Routes>
+      <Route path="entreno" element={<WorkoutPage />} />
       <Route element={<Layout />}>
         <Route index element={<TodayPage />} />
         <Route path="rutinas" element={<RoutinesPage />} />

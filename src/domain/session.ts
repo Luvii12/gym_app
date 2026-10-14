@@ -9,6 +9,13 @@ export interface LoggedSet {
   completedAt?: number;
 }
 
+/** Lo previsto para un ejercicio de la sesión (viene de la rutina; en lo añadido al vuelo, por defecto). */
+export interface SessionTarget {
+  repsMin: number;
+  repsMax: number;
+  restSec: number;
+}
+
 export interface WorkoutSession {
   id: string;
   /** Nombre del día en el momento de empezar ("Pull (Día B)"): el historial no cambia si luego se renombra. */
@@ -21,6 +28,8 @@ export interface WorkoutSession {
   endedAt?: number;
   /** El orden de los ejercicios es el de su primera aparición en `sets`. */
   sets: LoggedSet[];
+  /** Objetivo y descanso por ejercicio, por `exerciseId`. */
+  targets?: Record<string, SessionTarget>;
 }
 
 export function isSessionActive(session: WorkoutSession): boolean {
