@@ -11,6 +11,8 @@ export interface StepperProps {
   min?: number;
   max?: number;
   unit?: string;
+  /** Texto del valor (por defecto, número en español). */
+  format?: (value: number) => string;
   className?: string;
 }
 
@@ -27,6 +29,7 @@ export function Stepper({
   min = 0,
   max = Number.POSITIVE_INFINITY,
   unit,
+  format = formatNumber,
   className,
 }: StepperProps) {
   const set = (delta: number) => onChange(stepValue(value, delta, { min, max }));
@@ -50,7 +53,7 @@ export function Stepper({
         <Minus aria-hidden size={20} />
       </button>
       <div className="min-w-0 flex-1 text-center">
-        <span className="text-headline-md tabular-nums">{formatNumber(value)}</span>
+        <span className="text-headline-md tabular-nums">{format(value)}</span>
         {unit && <span className="ml-1 text-body-sm text-muted">{unit}</span>}
       </div>
       <button
