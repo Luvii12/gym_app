@@ -1,4 +1,4 @@
-import type { Exercise } from '../domain';
+import type { Exercise, SeedExercise } from '../domain';
 import { db, type GymDatabase } from './database';
 import { RepositoryError } from './errors';
 
@@ -6,8 +6,7 @@ export { RepositoryError } from './errors';
 
 /** Datos que aporta el usuario al crear o editar un ejercicio propio. */
 export type NewExercise = Omit<Exercise, 'id' | 'isCustom'>;
-/** Entrada de la semilla: ya trae su id estable. */
-export type SeedExercise = Omit<Exercise, 'isCustom'>;
+export type { SeedExercise } from '../domain';
 
 function cleanName(name: string): string {
   const trimmed = name.trim();

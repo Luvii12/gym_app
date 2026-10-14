@@ -54,3 +54,6 @@ export interface Exercise {
   /** Los de la semilla (`false`) no se pueden borrar; los creados por el usuario sí. */
   isCustom: boolean;
 }
+
+/** Entrada del catálogo semilla: un ejercicio predeterminado, con su id estable. */
+export type SeedExercise = Omit<Exercise, 'isCustom'>;

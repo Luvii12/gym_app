@@ -53,7 +53,7 @@ Marca `[x]` al terminar cada tarea. Cualquier idea nueva va al **Backlog**, no a
 
 - [x] F2.1 Tipos de dominio (`Exercise` con grupo muscular, músculos trabajados y equipamiento; `Routine`, `RoutineDay`, `WorkoutSession`, `LoggedSet`) en `src/domain/`
 - [x] F2.2 Esquema Dexie v1 + repositorios en `src/db/` (única puerta a IndexedDB) con tests sobre `fake-indexeddb`
-- [ ] F2.3 Catálogo semilla (~60-80 ejercicios en español) con la skill `seed-exercises`; carga inicial idempotente
+- [x] F2.3 Catálogo semilla (~60-80 ejercicios en español) con la skill `seed-exercises`; carga inicial idempotente
 - [ ] F2.4 Pantalla Ejercicios: buscador, filtros por grupo muscular y tarjetas con etiquetas "Predeterminado" / "Personalizado"
 - [ ] F2.5 Botón "Nuevo ejercicio": crear, editar y borrar personalizados (los de la semilla no se borran)
 
@@ -134,3 +134,4 @@ Barra cargada que muestra los discos a medida que haces series (idea de la propu
 - 2026-10-14 — F1 construida según el prototipo. Desviaciones: cifras con coma decimal (82,5) en vez de punto, por ser una app en español; la cabecera muestra siempre la marca y el título de cada pantalla va en el contenido; el engranaje de la cabecera lleva a una pantalla de Ajustes en vez de abrir un modal.
 - 2026-10-14 — F2.1: los grupos musculares siguen los filtros del prototipo (pecho, espalda, hombros, brazos, piernas, core, cardio) en vez de la lista más fina anterior; los músculos concretos van en un texto libre por ejercicio. Los valores guardados son identificadores en inglés (`chest`, `barbell`…) con etiquetas en español. Una serie sin `completedAt` es una serie prevista aún sin hacer.
 - 2026-10-14 — F2.2: esquema Dexie v1 con las cuatro tablas (ejercicios, rutinas, sesiones, ajustes) y repositorio de ejercicios. Los repositorios de rutinas y sesiones llegan con F3.2 y F4. `isCustom` no se indexa porque IndexedDB no admite booleanos como clave. Dos reglas de ESLint hacen cumplir la arquitectura: solo `src/db/` importa Dexie y `src/domain/` no importa React ni datos.
+- 2026-10-14 — F2.3: catálogo semilla de 67 ejercicios (pecho 10, espalda 11, hombros 10, brazos 12, piernas 16, core 8) en `src/data/exercises.ts`, tipado para que un valor inválido rompa el `typecheck`. No incluye cardio, porque la app registra peso y repeticiones y no tiempo ni distancia. Se carga en cada arranque con `seedCatalog` (idempotente).

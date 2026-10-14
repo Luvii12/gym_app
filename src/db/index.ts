@@ -7,3 +7,4 @@ export {
   type NewExercise,
   type SeedExercise,
 } from './exercises';
+export { seedCatalog } from './seed';
