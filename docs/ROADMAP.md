@@ -102,16 +102,16 @@ Marca `[x]` al terminar cada tarea. Cualquier idea nueva va al **Backlog**, no a
 
 **Criterio de hecho:** con datos de varias semanas (seed de prueba), las gráficas, los PR y la racha coinciden con el cálculo manual de los tests.
 
-## F6 — Ajustes, pulido y lanzamiento
+## F6 — Ajustes, pulido y lanzamiento (en curso: falta probarlo en el móvil)
 
 **Objetivo:** que sea fiable y la uses a diario.
 
 - [x] F6.1 Ajustes: almacenamiento local ("N entrenos guardados"), exportar e importar JSON con validación y confirmación, y "Borrar todos los datos" con confirmación dentro de la app
 - [x] F6.2 Pedir almacenamiento persistente (`navigator.storage.persist`) para que el navegador no borre los datos
-- [ ] F6.3 Offline completo verificado (modo avión tras la primera carga) con `pwa-reviewer`
-- [ ] F6.4 Lighthouse PWA ≥ 90 y accesibilidad ≥ 90
-- [ ] F6.5 Despliegue estático (GitHub Pages o Netlify) y guía de instalación en el móvil
-- [ ] F6.6 Quitar skills y deps que ya no se usen (`frontend-design`)
+- [x] F6.3 Offline completo verificado (modo avión tras la primera carga) con `pwa-reviewer`
+- [x] F6.4 Lighthouse PWA ≥ 90 y accesibilidad ≥ 90
+- [x] F6.5 Despliegue estático (GitHub Pages o Netlify) y guía de instalación en el móvil
+- [x] F6.6 Quitar skills y deps que ya no se usen (`frontend-design`)
 
 **Criterio de hecho:** instalada en tu móvil, la usas un entreno real sin conexión, exportas, borras datos de prueba e importas de vuelta sin pérdidas.
 
@@ -148,3 +148,5 @@ Barra cargada que muestra los discos a medida que haces series (idea de la propu
 - 2026-10-14 — F5.4 y F5.5: sección "Récords personales (PR)" en Progreso (una tarjeta por ejercicio, ordenada por grupo muscular, con mejora y "hace N días"; `formatDaysAgo` en `src/lib/`); en Hoy, "Último entreno" (duración, volumen, PR destacado vía `sessionRecords`) y "Racha de N semanas"; en el entreno, insignia y aviso "PR" al batir el 1RM del historial (derivado al pintar, no se guarda). Limitación: dentro de un mismo entreno, varias series que superan el récord anterior se marcan todas como PR. E2E `e2e/progress.spec.ts` con sesiones sembradas en IndexedDB que comprueba 1RM Epley, volumen, PR, historial y edición/borrado. **F5 completada.**
 - 2026-10-14 — F6.1: Ajustes con contador de entrenos, exportar/importar JSON y "Borrar todos los datos". Dominio `src/domain/backup.ts` (formato `gym-routine-backup` v1, `parseBackup` valida todo y rechaza copias dañadas o de una versión más nueva) y `backupRepository` (importar y borrar son transacciones de todo o nada). La copia solo incluye los ejercicios propios (la semilla se recarga sola) e incluye los ajustes de la tabla `settings` (rutina activa); las preferencias de aviso del descanso viven en localStorage y no se exportan. Importar y borrar sustituyen todo, con confirmación en hoja. Pendiente: la pantalla no se ha comparado con `screen.png` en un navegador real, ni hay E2E de exportar/importar.
 - 2026-10-14 — F6.2: la app pide `navigator.storage.persist()` al arrancar (`src/lib/storage.ts`, nunca lanza: sin API o si se rechaza, sigue igual). Ajustes indica si el almacenamiento está protegido y, si no, ofrece "Proteger mis datos" (gesto del usuario, necesario en Safari) y avisa si el navegador lo deniega. E2E `e2e/backup.spec.ts` cubre exportar → borrar todo → importar → recargar sin pérdidas, y el rechazo de un JSON inválido (cierra el criterio de F6.1). Pendiente: Firefox puede mostrar un aviso al pedir la persistencia en el arranque.
+- 2026-10-14 — F6.3 y F6.4 (auditadas con `pwa-reviewer`): offline verificado con Playwright (`setOffline` tras la primera carga: todas las rutas, URLs profundas, datos de IndexedDB, gráfica lazy precacheada, fuentes Geist, cero peticiones externas) e instalable según CDP (`getInstallabilityErrors` vacío). Lighthouse 13 (móvil): accesibilidad 100, rendimiento 96-97, buenas prácticas 100, SEO 82 → 100 esperable con la meta description y `robots.txt` añadidos. Lighthouse ya no tiene categoría PWA, por eso la instalabilidad se comprueba con CDP. Pendiente opcional: el bundle principal (526 kB) supera el aviso de Vite; se puede dividir con `React.lazy` por página.
+- 2026-10-14 — F6.5: despliegue estático con ruta base configurable (`VITE_BASE`, por defecto `/`; `start_url`, `scope` y el router la respetan, probado con `/gym/`). Workflow de GitHub Pages (`.github/workflows/deploy.yml`, rama `main`, copia `404.html` para URLs profundas), `public/_redirects` para Netlify y guía en `docs/DESPLIEGUE.md` con la instalación en Android e iPhone. No hay remoto git todavía: no se ha desplegado de verdad. F6.6: quitada la skill `frontend-design` (el resto de dependencias siguen en uso).

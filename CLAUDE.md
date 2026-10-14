@@ -55,10 +55,11 @@ e2e/            tests Playwright
 
 F0 Entorno · F1 Identidad visual y estructura · F2 Ejercicios y db · F3 Rutinas (días rotativos)
 · F4 Entreno activo · F5 Historial y progreso · F6 Pulido y lanzamiento.
+Despliegue e instalación en el móvil: `docs/DESPLIEGUE.md`.
 Plan detallado, tareas y criterios de hecho (incluye qué pantalla del prototipo corresponde a cada fase): `docs/ROADMAP.md` (única fuente de verdad; se trabaja una fase y una tarea cada vez).
 
 ## Agentes y skills del proyecto
 
 Agentes: `frontend-dev`, `qa-tester`, `pwa-reviewer`. Skills propias: `verify`, `new-feature`, `seed-exercises`.
-Skills de terceros (en `.claude/skills/`, no editar; actualizar con `npx skills update`): `frontend-design` (quitar tras definir la identidad visual), `ui-ux-pro-max`, `test-driven-development`.
+Skills de terceros (en `.claude/skills/`, no editar; actualizar con `npx skills update`): `ui-ux-pro-max`, `test-driven-development`.
 MCP: `playwright`, `context7`.
