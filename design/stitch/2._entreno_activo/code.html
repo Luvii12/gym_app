@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Gym Routine - Entreno Activo</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed-dim": "#abd600",
+            "on-tertiary-fixed": "#002109",
+            "secondary-container": "#fe6b00",
+            "tertiary": "#ffffff",
+            "on-background": "#d8e4f3",
+            "surface": "#08141f",
+            "on-primary-container": "#556d00",
+            "outline-variant": "#444933",
+            "surface-tint": "#abd600",
+            "surface-container-high": "#202b36",
+            "primary": "#ffffff",
+            "inverse-surface": "#d8e4f3",
+            "on-tertiary": "#003915",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+            "on-primary-fixed-variant": "#3c4d00",
+            "on-error": "#690005",
+            "primary-fixed": "#c3f400",
+            "surface-container-highest": "#2a3642",
+            "outline": "#8e9379",
+            "surface-variant": "#2a3642",
+            "on-tertiary-container": "#007432",
+            "on-secondary-fixed-variant": "#7a3000",
+            "secondary": "#ffb693",
+            "on-secondary": "#561f00",
+            "surface-dim": "#08141f",
+            "on-primary": "#283500",
+            "on-secondary-container": "#572000",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#005321",
+            "surface-container-lowest": "#040f19",
+            "tertiary-container": "#6bff8f",
+            "on-surface": "#d8e4f3",
+            "tertiary-fixed-dim": "#4ae176",
+            "tertiary-fixed": "#6bff8f",
+            "inverse-primary": "#506600",
+            "primary-container": "#c3f400",
+            "surface-bright": "#2f3a46",
+            "secondary-fixed-dim": "#ffb693",
+            "on-secondary-fixed": "#351000",
+            "surface-container": "#15212c",
+            "inverse-on-surface": "#26323d",
+            "on-primary-fixed": "#161e00",
+            "secondary-fixed": "#ffdbcc",
+            "background": "#08141f",
+            "on-surface-variant": "#c4c9ac",
+            "surface-container-low": "#111d27"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-lg": "1.25rem",
+            "margin": "1rem",
+            "space-xl": "1.75rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "label-md": ["Geist", "sans-serif"],
+            "headline-lg": ["Geist", "sans-serif"],
+            "display-lg": ["Geist", "sans-serif"],
+            "label-sm": ["Geist", "sans-serif"],
+            "headline-sm": ["Geist", "sans-serif"],
+            "body-md": ["Geist", "sans-serif"],
+            "headline-xl": ["Geist", "sans-serif"],
+            "label-lg": ["Geist", "sans-serif"],
+            "display-lg-mobile": ["Geist", "sans-serif"],
+            "body-sm": ["Geist", "sans-serif"],
+            "headline-md": ["Geist", "sans-serif"],
+            "body-lg": ["Geist", "sans-serif"],
+            "metric-numeral": ["JetBrains Mono", "monospace"]
+          },
+          "fontSize": {
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-lg": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-xl": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-lg-mobile": ["40px", { "lineHeight": "44px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "metric-numeral": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    .touch-callout-none {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased touch-callout-none min-h-screen pb-40 selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Mobile Viewport Frame -->
+<div class="w-full max-w-lg mx-auto bg-background min-h-screen relative flex flex-col">
+<!-- Sticky Workout Header (Level 1 Surface with Progress Rim) -->
+<header class="sticky top-0 z-40 bg-surface/95 backdrop-blur-md border-b border-surface-container-high transition-all">
+<div class="px-4 pt-3 pb-2.5 flex items-center justify-between gap-3">
+<!-- Left: Live Timer & Workout Name -->
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5 text-primary-fixed">
+<span class="material-symbols-outlined text-[18px] animate-pulse" data-icon="timer">timer</span>
+<span class="font-metric-numeral text-headline-sm font-bold tracking-tight text-primary-fixed tabular-nums" id="live-timer">24:18</span>
+<span class="inline-block w-2 h-2 rounded-full bg-primary-fixed animate-ping ml-1"></span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-tertiary tracking-tight mt-0.5">
+            Pull (Día B)
+          </h1>
+</div>
+<!-- Right: Finish Action (High tactile 44px) -->
+<button class="h-11 px-4 rounded-lg bg-surface-container-high border border-error/40 text-error hover:bg-error-container hover:text-on-error active:scale-95 transition-all duration-150 flex items-center gap-1.5 font-label-lg font-bold shadow-sm" onclick="document.getElementById('finish-modal').classList.toggle('hidden')">
+<span class="material-symbols-outlined text-[18px]" data-icon="flag">flag</span>
+<span>Terminar</span>
+</button>
+</div>
+<!-- Linear Workout Progress Indicator (7 de 16 series = ~44%) -->
+<div class="w-full bg-surface-container-low px-4 py-1.5 flex items-center justify-between gap-3 text-label-sm font-label-sm border-t border-surface-container-high/60">
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">Progreso general</span>
+<span class="text-tertiary font-bold tabular-nums">7 / 16 series</span>
+</div>
+<span class="text-primary-fixed font-bold">44%</span>
+</div>
+<!-- Progress Track -->
+<div class="w-full h-1 bg-surface-container-highest">
+<div class="h-full bg-primary-fixed transition-all duration-300" style="width: 44%;"></div>
+</div>
+</header>
+<!-- Main Live Logging Canvas -->
+<main class="flex-1 px-4 pt-4 space-y-4">
+<!-- EXERCISE 1: Dominadas con peso -->
+<section class="bg-surface-container-low border border-surface-container-high rounded-xl overflow-hidden shadow-sm">
+<!-- Exercise Card Header -->
+<div class="p-3.5 bg-surface-container/60 border-b border-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-[20px]" data-icon="fitness_center">fitness_center</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-tertiary font-bold tracking-tight">Dominadas con peso</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Espalda · 3 series</p>
+</div>
+</div>
+<button class="w-9 h-9 rounded-lg hover:bg-surface-container-highest text-on-surface-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<!-- Table Columns Label Row -->
+<div class="grid grid-cols-12 px-3 py-2 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider border-b border-surface-container-high/50 bg-surface-container-lowest/30">
+<div class="col-span-2 text-center">SERIE</div>
+<div class="col-span-4 text-center">KG (+/-)</div>
+<div class="col-span-3 text-center">REPS (+/-)</div>
+<div class="col-span-3 text-center">COMPLETAR</div>
+</div>
+<div class="divide-y divide-surface-container-high/40">
+<!-- Row 1 (Completada) -->
+<div class="grid grid-cols-12 px-3 py-2.5 items-center bg-surface-container-lowest/20 opacity-55 transition-opacity">
+<div class="col-span-2 flex justify-center">
+<span class="w-7 h-7 rounded-md bg-surface-container-high text-on-surface-variant font-label-md font-bold flex items-center justify-center tabular-nums">1</span>
+</div>
+<div class="col-span-4 text-center">
+<span class="font-headline-sm text-headline-sm text-on-surface-variant line-through tabular-nums font-bold">10.0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-0.5">kg</span>
+</div>
+<div class="col-span-3 text-center">
+<span class="font-headline-sm text-headline-sm text-on-surface-variant line-through tabular-nums font-bold">8</span>
+</div>
+<div class="col-span-3 flex justify-center">
+<button aria-label="Serie 1 completada" class="w-12 h-12 rounded-lg bg-primary-fixed text-on-primary-fixed flex items-center justify-center shadow active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[24px] font-bold" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</button>
+</div>
+</div>
+<!-- Row 2 (Completada) -->
+<div class="grid grid-cols-12 px-3 py-2.5 items-center bg-surface-container-lowest/20 opacity-55 transition-opacity">
+<div class="col-span-2 flex justify-center">
+<span class="w-7 h-7 rounded-md bg-surface-container-high text-on-surface-variant font-label-md font-bold flex items-center justify-center tabular-nums">2</span>
+</div>
+<div class="col-span-4 text-center">
+<span class="font-headline-sm text-headline-sm text-on-surface-variant line-through tabular-nums font-bold">10.0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-0.5">kg</span>
+</div>
+<div class="col-span-3 text-center">
+<span class="font-headline-sm text-headline-sm text-on-surface-variant line-through tabular-nums font-bold">7</span>
+</div>
+<div class="col-span-3 flex justify-center">
+<button aria-label="Serie 2 completada" class="w-12 h-12 rounded-lg bg-primary-fixed text-on-primary-fixed flex items-center justify-center shadow active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[24px] font-bold" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</button>
+</div>
+</div>
+<!-- Row 3 (Actual / En curso - High Tactile Steppers) -->
+<div class="grid grid-cols-12 px-2.5 py-3 items-center bg-surface-container border-l-4 border-l-primary-fixed">
+<!-- Set Badge with active pulse dot -->
+<div class="col-span-2 flex flex-col items-center justify-center gap-1">
+<span class="w-7 h-7 rounded-md bg-primary-fixed text-on-primary-fixed font-headline-sm font-bold flex items-center justify-center tabular-nums shadow-sm">3</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed animate-ping"></span>
+</div>
+<!-- Stepper Weight -->
+<div class="col-span-4 flex flex-col items-center justify-center px-1">
+<div class="flex items-center justify-between w-full bg-surface-container-lowest border border-surface-container-highest rounded-lg p-0.5">
+<button class="w-11 h-11 rounded-md bg-surface-container-high text-tertiary flex items-center justify-center active:scale-90 transition-transform font-bold text-lg select-none" onclick="decrementVal('w-val', 0.5)">
+                  −
+                </button>
+<div class="flex-1 text-center font-metric-numeral text-headline-sm font-bold text-tertiary tabular-nums tracking-tight">
+<span id="w-val">10.0</span>
+</div>
+<button class="w-11 h-11 rounded-md bg-surface-container-high text-tertiary flex items-center justify-center active:scale-90 transition-transform font-bold text-lg select-none" onclick="incrementVal('w-val', 0.5)">
+                  +
+                </button>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant mt-1 text-center whitespace-nowrap">Última vez: 10 kg</span>
+</div>
+<!-- Stepper Reps -->
+<div class="col-span-3 flex flex-col items-center justify-center px-1">
+<div class="flex items-center justify-between w-full bg-surface-container-lowest border border-surface-container-highest rounded-lg p-0.5">
+<button class="w-10 h-11 rounded-md bg-surface-container-high text-tertiary flex items-center justify-center active:scale-90 transition-transform font-bold text-lg select-none" onclick="decrementVal('r-val', 1)">
+                  −
+                </button>
+<div class="flex-1 text-center font-metric-numeral text-headline-sm font-bold text-tertiary tabular-nums tracking-tight">
+<span id="r-val">6</span>
+</div>
+<button class="w-10 h-11 rounded-md bg-surface-container-high text-tertiary flex items-center justify-center active:scale-90 transition-transform font-bold text-lg select-none" onclick="incrementVal('r-val', 1)">
+                  +
+                </button>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant mt-1 text-center whitespace-nowrap">Objetivo: 6-8</span>
+</div>
+<!-- Big Check Button (Pending action awaiting tap) -->
+<div class="col-span-3 flex justify-center">
+<button aria-label="Confirmar serie 3" class="w-12 h-12 rounded-lg border-2 border-primary-fixed bg-surface-container-highest text-primary-fixed hover:bg-primary-fixed hover:text-on-primary-fixed flex items-center justify-center shadow-lg active:scale-90 transition-all duration-150" onclick="completeCurrentSet(this)">
+<span class="material-symbols-outlined text-[26px] font-extrabold" data-icon="check">check</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- EXERCISE 2: Remo con barra -->
+<section class="bg-surface-container-low border border-surface-container-high rounded-xl overflow-hidden shadow-sm">
+<!-- Exercise Card Header + Volt PR Badge -->
+<div class="p-3.5 bg-surface-container/60 border-b border-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-[20px]" data-icon="fitness_center">fitness_center</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-tertiary font-bold tracking-tight">Remo con barra</h2>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-fixed/20 border border-primary-fixed/40 text-primary-fixed font-label-sm text-[10px] font-extrabold tracking-wide uppercase">
+<span class="material-symbols-outlined text-[13px]" data-icon="bolt">bolt</span>
+                  PR 85 kg
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Espalda media · 4 series</p>
+</div>
+</div>
+<button class="w-9 h-9 rounded-lg hover:bg-surface-container-highest text-on-surface-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<!-- Table Columns Label Row -->
+<div class="grid grid-cols-12 px-3 py-2 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider border-b border-surface-container-high/50 bg-surface-container-lowest/30">
+<div class="col-span-2 text-center">SERIE</div>
+<div class="col-span-4 text-center">KG (+/-)</div>
+<div class="col-span-3 text-center">REPS (+/-)</div>
+<div class="col-span-3 text-center">COMPLETAR</div>
+</div>
+<!-- Row 1: Ready for input -->
+<div class="p-0 border-b border-surface-container-high/30">
+<div class="grid grid-cols-12 px-2.5 py-3 items-center bg-surface-container-lowest/10">
+<!-- Set Badge -->
+<div class="col-span-2 flex justify-center">
+<span class="w-7 h-7 rounded-md bg-surface-container-highest text-tertiary font-headline-sm font-bold flex items-center justify-center tabular-nums">1</span>
+</div>
+<!-- Stepper Weight -->
+<div class="col-span-4 flex flex-col items-center justify-center px-1">
+<div class="flex items-center justify-between w-full bg-surface-container-lowest border border-surface-container-highest rounded-lg p-0.5">
+<button class="w-11 h-11 rounded-md bg-surface-container-high text-tertiary flex items-center justify-center active:scale-90 transition-transform font-bold text-lg select-none" onclick="decrementVal('w-val-remo', 2.5)">
+                  −
+                </button>
+<div class="flex-1 text-center font-metric-numeral text-headline-sm font-bold text-tertiary tabular-nums tracking-tight">
+<span id="w-val-remo">82.5</span>
+</div>
+<button class="w-11 h-11 rounded-md bg-surface-container-high text-tertiary flex items-center justify-center active:scale-90 transition-transform font-bold text-lg select-none" onclick="incrementVal('w-val-remo', 2.5)">
+                  +
+                </button>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant mt-1 text-center whitespace-nowrap">Última vez: 80 kg × 8</span>
+</div>
+<!-- Stepper Reps -->
+<div class="col-span-3 flex flex-col items-center justify-center px-1">
+<div class="flex items-center justify-between w-full bg-surface-container-lowest border border-surface-container-highest rounded-lg p-0.5">
+<button class="w-10 h-11 rounded-md bg-surface-container-high text-tertiary flex items-center justify-center active:scale-90 transition-transform font-bold text-lg select-none" onclick="decrementVal('r-val-remo', 1)">
+                  −
+                </button>
+<div class="flex-1 text-center font-metric-numeral text-headline-sm font-bold text-tertiary tabular-nums tracking-tight">
+<span id="r-val-remo">8</span>
+</div>
+<button class="w-10 h-11 rounded-md bg-surface-container-high text-tertiary flex items-center justify-center active:scale-90 transition-transform font-bold text-lg select-none" onclick="incrementVal('r-val-remo', 1)">
+                  +
+                </button>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant mt-1 text-center whitespace-nowrap">Objetivo: 8-10</span>
+</div>
+<!-- Tactile Check Button -->
+<div class="col-span-3 flex justify-center">
+<button aria-label="Confirmar serie 1 remo" class="w-12 h-12 rounded-lg border-2 border-primary-fixed bg-surface-container-highest text-primary-fixed hover:bg-primary-fixed hover:text-on-primary-fixed flex items-center justify-center shadow-lg active:scale-90 transition-all duration-150" onclick="completeCurrentSet(this)">
+<span class="material-symbols-outlined text-[26px] font-extrabold" data-icon="check">check</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Add Set CTA Inside Card -->
+<div class="p-2.5 bg-surface-container-lowest/40">
+<button class="w-full h-11 rounded-lg border border-primary-fixed/40 bg-surface-container-high/40 hover:bg-surface-container-high text-primary-fixed font-label-md font-bold flex items-center justify-center gap-1.5 active:scale-98 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+<span>+ Añadir serie</span>
+</button>
+</div>
+</section>
+<!-- Global Add Exercise CTA -->
+<div class="pt-1">
+<button class="w-full h-13 py-3 rounded-xl border border-surface-container-high bg-surface-container-low hover:bg-surface-container text-tertiary font-label-lg font-bold flex items-center justify-center gap-2 active:scale-98 transition-all shadow-sm">
+<span class="material-symbols-outlined text-primary-fixed text-[22px]" data-icon="add_circle">add_circle</span>
+<span>+ Añadir ejercicio</span>
+</button>
+</div>
+</main>
+<!-- Floating Rest & Auto-Timer Docked Banner (Level 3 Elevation) -->
+<!-- Notice: Standard bottom navigation is intentionally suppressed to maintain single-focus in live tracking -->
+<aside class="fixed bottom-0 left-0 right-0 z-50 max-w-lg mx-auto bg-surface-container-low/95 backdrop-blur-lg border-t border-surface-container-high shadow-2xl">
+<!-- Rest Timer High-Vis Progress Bar -->
+<div class="w-full h-1.5 bg-surface-container-highest relative overflow-hidden">
+<div class="h-full bg-secondary-container shadow-[0_0_8px_#fe6b00] transition-all duration-1000 ease-linear" id="rest-timer-bar" style="width: 65%;"></div>
+</div>
+<div class="px-4 py-3 flex items-center justify-between gap-3">
+<!-- Rest Timer Countdown -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high border border-secondary-container/40 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]" data-icon="hourglass_top">hourglass_top</span>
+</div>
+<div>
+<div class="flex items-baseline gap-1.5">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Descanso:</span>
+<span class="font-metric-numeral text-headline-sm font-bold text-secondary tabular-nums" id="countdown-val">00:58</span>
+</div>
+<p class="font-label-sm text-[11px] text-outline">Descanso automático: 90s activado</p>
+</div>
+</div>
+<!-- Quick Rest Action Buttons -->
+<div class="flex items-center gap-1.5">
+<button class="h-10 px-3 rounded-lg bg-surface-container-high border border-surface-container-highest text-tertiary font-label-md font-bold active:scale-95 transition-transform" onclick="addRest(30)">
+            +30s
+          </button>
+<button class="h-10 px-3 rounded-lg bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-md font-bold active:scale-95 transition-transform flex items-center gap-1" onclick="skipRest()">
+<span class="material-symbols-outlined text-[16px]" data-icon="skip_next">skip_next</span>
+<span>Saltar</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Confirmation Finish Modal (Hidden by default) -->
+<div class="hidden fixed inset-0 z-50 bg-surface-container-lowest/80 backdrop-blur-sm flex items-center justify-center p-4" id="finish-modal">
+<div class="w-full max-w-sm bg-surface-container border border-surface-container-highest rounded-2xl p-5 shadow-2xl">
+<div class="w-12 h-12 rounded-full bg-primary-fixed/20 text-primary-fixed flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[28px]" data-icon="emoji_events">emoji_events</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg font-bold text-tertiary">¿Terminar entreno?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+          Has completado 7 series en 24 minutos. Se registrarán tus marcas y tu volumen total en Progreso.
+        </p>
+<div class="grid grid-cols-2 gap-2 mt-5">
+<button class="h-12 rounded-xl bg-surface-container-high text-tertiary font-label-lg font-bold active:scale-98" onclick="document.getElementById('finish-modal').classList.add('hidden')">
+            Continuar
+          </button>
+<button class="h-12 rounded-xl bg-primary-fixed text-on-primary-fixed font-label-lg font-bold active:scale-98 shadow-md" onclick="alert('¡Entrenamiento registrado con éxito!'); document.getElementById('finish-modal').classList.add('hidden')">
+            Finalizar
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Logic for Steppers and Rest Timer -->
+<script>
+    function incrementVal(elementId, step) {
+      const el = document.getElementById(elementId);
+      let val = parseFloat(el.innerText);
+      val = Math.round((val + step) * 10) / 10;
+      el.innerText = step % 1 === 0 ? val : val.toFixed(1);
+    }
+
+    function decrementVal(elementId, step) {
+      const el = document.getElementById(elementId);
+      let val = parseFloat(el.innerText);
+      if (val > step) {
+        val = Math.round((val - step) * 10) / 10;
+        el.innerText = step % 1 === 0 ? val : val.toFixed(1);
+      }
+    }
+
+    function completeCurrentSet(btn) {
+      const isCompleted = btn.classList.contains('bg-primary-fixed');
+      if (!isCompleted) {
+        btn.classList.remove('border-2', 'border-primary-fixed', 'bg-surface-container-highest', 'text-primary-fixed');
+        btn.classList.add('bg-primary-fixed', 'text-on-primary-fixed');
+        btn.innerHTML = `<span class="material-symbols-outlined text-[26px] font-extrabold" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>`;
+        // Trigger fresh 90s countdown animation
+        resetRestTimer();
+      } else {
+        btn.classList.remove('bg-primary-fixed', 'text-on-primary-fixed');
+        btn.classList.add('border-2', 'border-primary-fixed', 'bg-surface-container-highest', 'text-primary-fixed');
+        btn.innerHTML = `<span class="material-symbols-outlined text-[26px] font-extrabold" data-icon="check">check</span>`;
+      }
+    }
+
+    let restSeconds = 58;
+    const countdownEl = document.getElementById('countdown-val');
+    const timerBarEl = document.getElementById('rest-timer-bar');
+
+    function updateRestDisplay() {
+      const mins = Math.floor(restSeconds / 60);
+      const secs = restSeconds % 60;
+      countdownEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      const percentage = Math.max(0, Math.min(100, (restSeconds / 90) * 100));
+      timerBarEl.style.width = percentage + '%';
+    }
+
+    setInterval(() => {
+      if (restSeconds > 0) {
+        restSeconds--;
+        updateRestDisplay();
+      }
+    }, 1000);
+
+    function addRest(secs) {
+      restSeconds += secs;
+      updateRestDisplay();
+    }
+
+    function skipRest() {
+      restSeconds = 0;
+      updateRestDisplay();
+    }
+
+    function resetRestTimer() {
+      restSeconds = 90;
+      updateRestDisplay();
+    }
+
+    // Live Workout Timer
+    let workoutSeconds = 24 * 60 + 18;
+    const liveTimerEl = document.getElementById('live-timer');
+    setInterval(() => {
+      workoutSeconds++;
+      const m = Math.floor(workoutSeconds / 60);
+      const s = workoutSeconds % 60;
+      liveTimerEl.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }, 1000);
+  </script>
+</body></html>

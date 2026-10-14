@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Gym Routine - Hoy</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Geist Typography -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed-dim": "#abd600",
+            "on-tertiary-fixed": "#002109",
+            "secondary-container": "#fe6b00",
+            "tertiary": "#ffffff",
+            "on-background": "#d8e4f3",
+            "surface": "#08141f",
+            "on-primary-container": "#556d00",
+            "outline-variant": "#444933",
+            "surface-tint": "#abd600",
+            "surface-container-high": "#202b36",
+            "primary": "#ffffff",
+            "inverse-surface": "#d8e4f3",
+            "on-tertiary": "#003915",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+            "on-primary-fixed-variant": "#3c4d00",
+            "on-error": "#690005",
+            "primary-fixed": "#c3f400",
+            "surface-container-highest": "#2a3642",
+            "outline": "#8e9379",
+            "surface-variant": "#2a3642",
+            "on-tertiary-container": "#007432",
+            "on-secondary-fixed-variant": "#7a3000",
+            "secondary": "#ffb693",
+            "on-secondary": "#561f00",
+            "surface-dim": "#08141f",
+            "on-primary": "#283500",
+            "on-secondary-container": "#572000",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#005321",
+            "surface-container-lowest": "#040f19",
+            "tertiary-container": "#6bff8f",
+            "on-surface": "#d8e4f3",
+            "tertiary-fixed-dim": "#4ae176",
+            "tertiary-fixed": "#6bff8f",
+            "inverse-primary": "#506600",
+            "primary-container": "#c3f400",
+            "surface-bright": "#2f3a46",
+            "secondary-fixed-dim": "#ffb693",
+            "on-secondary-fixed": "#351000",
+            "surface-container": "#15212c",
+            "inverse-on-surface": "#26323d",
+            "on-primary-fixed": "#161e00",
+            "secondary-fixed": "#ffdbcc",
+            "background": "#08141f",
+            "on-surface-variant": "#c4c9ac",
+            "surface-container-low": "#111d27"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-lg": "1.25rem",
+            "margin": "1rem",
+            "space-xl": "1.75rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "label-md": ["Geist"],
+            "headline-lg": ["Geist"],
+            "display-lg": ["Geist"],
+            "label-sm": ["Geist"],
+            "headline-sm": ["Geist"],
+            "body-md": ["Geist"],
+            "headline-xl": ["Geist"],
+            "label-lg": ["Geist"],
+            "display-lg-mobile": ["Geist"],
+            "body-sm": ["Geist"],
+            "headline-md": ["Geist"],
+            "body-lg": ["Geist"],
+            "metric-numeral": ["Geist"]
+          },
+          "fontSize": {
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-lg": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-xl": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-lg-mobile": ["40px", { "lineHeight": "44px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "metric-numeral": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background-color: #08141f;
+      color: #d8e4f3;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-background min-h-screen text-on-surface flex flex-col items-center justify-start antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Mobile Screen Wrapper (390px base constraint) -->
+<div class="w-full max-w-lg min-h-screen flex flex-col relative pb-[88px] bg-background">
+<!-- TopAppBar (from Shared Components JSON & Identity) -->
+<header class="sticky top-0 z-40 bg-surface dark:bg-surface border-b border-surface-container-high dark:border-surface-container-high">
+<div class="flex justify-between items-center w-full px-4 h-14 max-w-lg mx-auto">
+<div class="flex items-center space-x-2.5">
+<span class="material-symbols-outlined text-primary-fixed dark:text-primary-fixed text-[26px]">fitness_center</span>
+<span class="text-headline-md font-headline-md font-extrabold tracking-tight text-primary-fixed dark:text-primary-fixed">Gym Routine</span>
+</div>
+<button aria-label="Ajustes" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container dark:hover:bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Sub-Header Status Strip & Greeting -->
+<section class="px-4 pt-3 pb-2 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<!-- Offline sync state pill -->
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high border border-surface-container-highest">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">DATOS LOCALES (OFFLINE)</span>
+</div>
+<span class="font-label-md text-label-md text-outline">Lunes, 24 de Octubre</span>
+</div>
+<div class="mt-2 flex items-baseline justify-between">
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight font-extrabold">Listo para entrenar</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Mantén la sobrecarga progresiva en cada serie.</p>
+</div>
+</div>
+</section>
+<!-- Main Content Canvas -->
+<main class="px-4 flex flex-col gap-4 mt-2">
+<!-- MAIN HERO CARD: Siguiente Entreno -->
+<section class="relative bg-surface-container rounded-xl p-4 border border-surface-container-high overflow-hidden shadow-2xl">
+<!-- Accent indicator line at top of card -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-fixed via-primary-fixed-dim to-transparent opacity-90"></div>
+<!-- Card Header Info -->
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant tracking-wider uppercase">Siguiente rutina</span>
+<span class="bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-extrabold px-2 py-0.5 rounded">ACTIVA</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">bolt</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight font-bold mb-1">Torso Potencia (Día A)</h2>
+<!-- Metadata Chips -->
+<div class="flex flex-wrap items-center gap-2 mb-4">
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-outline-variant bg-surface-container-lowest px-2.5 py-1 rounded-lg border border-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-primary-fixed">timer</span>
+            ~55 min
+          </span>
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm bg-surface-container-lowest px-2.5 py-1 rounded-lg border border-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-primary-fixed">reorder</span>
+            5 ejercicios
+          </span>
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm bg-surface-container-lowest px-2.5 py-1 rounded-lg border border-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-primary-fixed">fitness_center</span>
+            16 series
+          </span>
+</div>
+<!-- Summary List Preview (Utilitarian Set Breakdown) -->
+<div class="space-y-1.5 mb-5 bg-surface-container-low p-2.5 rounded-lg border border-surface-container-high">
+<!-- Exercise 1 -->
+<div class="flex items-center justify-between py-1.5 px-2 rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="font-label-md text-label-md text-outline w-4 text-center">1</span>
+<span class="font-body-md text-body-md font-semibold text-primary truncate">Press Banca plano</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant whitespace-nowrap pl-2 font-mono">4 series · 75-80 kg</span>
+</div>
+<!-- Exercise 2 -->
+<div class="flex items-center justify-between py-1.5 px-2 rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="font-label-md text-label-md text-outline w-4 text-center">2</span>
+<span class="font-body-md text-body-md font-semibold text-primary truncate">Remo con barra</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant whitespace-nowrap pl-2 font-mono">4 series · 70 kg</span>
+</div>
+<!-- Exercise 3 -->
+<div class="flex items-center justify-between py-1.5 px-2 rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="font-label-md text-label-md text-outline w-4 text-center">3</span>
+<span class="font-body-md text-body-md font-semibold text-primary truncate">Press militar</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant whitespace-nowrap pl-2 font-mono">3 series · 45 kg</span>
+</div>
+<!-- Exercise 4 -->
+<div class="flex items-center justify-between py-1.5 px-2 rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="font-label-md text-label-md text-outline w-4 text-center">4</span>
+<span class="font-body-md text-body-md font-semibold text-primary truncate">Jalón al pecho</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant whitespace-nowrap pl-2 font-mono">3 series · 65 kg</span>
+</div>
+<!-- Exercise 5 -->
+<div class="flex items-center justify-between py-1.5 px-2 rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="font-label-md text-label-md text-outline w-4 text-center">5</span>
+<span class="font-body-md text-body-md font-semibold text-primary truncate">Elevaciones laterales</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant whitespace-nowrap pl-2 font-mono">2 series · 12 kg</span>
+</div>
+</div>
+<!-- Primary CTA: High-Visibility Empezar entreno -->
+<button class="w-full h-[54px] rounded-lg bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary-fixed font-headline-sm text-headline-sm font-extrabold flex items-center justify-center gap-3 transition-transform duration-150 active:scale-[0.98] shadow-lg shadow-primary-fixed/20 tracking-wide">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span>Empezar entreno</span>
+</button>
+</section>
+<!-- SECONDARY ACTIONS (Tactile Pair) -->
+<section class="grid grid-cols-2 gap-3">
+<!-- Choose another routine -->
+<button class="flex flex-col items-start justify-between p-3.5 min-h-[92px] rounded-xl bg-surface-container-low border border-surface-container-high hover:border-outline text-left transition-all active:scale-[0.98]">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary-fixed border border-surface-container-high">
+<span class="material-symbols-outlined text-[20px]">layers</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm font-bold text-primary block leading-tight">Elegir otra</span>
+<span class="font-body-sm text-body-sm text-outline">Explorar rutinas</span>
+</div>
+</button>
+<!-- Quick / Free workout -->
+<button class="flex flex-col items-start justify-between p-3.5 min-h-[92px] rounded-xl bg-surface-container-low border border-surface-container-high hover:border-outline text-left transition-all active:scale-[0.98]">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary-fixed border border-surface-container-high">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm font-bold text-primary block leading-tight">Entreno libre</span>
+<span class="font-body-sm text-body-sm text-outline">Sin plantilla fija</span>
+</div>
+</button>
+</section>
+<!-- RECENT ACTIVITY SUMMARY CARD -->
+<section class="bg-surface-container-low rounded-xl p-4 border border-surface-container-high">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">history</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-semibold">Último entreno</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Viernes, 21 Oct</span>
+</div>
+<div class="flex items-baseline justify-between mb-2">
+<h3 class="font-headline-md text-headline-md font-bold text-primary">Pierna y Core</h3>
+<span class="font-label-sm text-label-sm text-tertiary-fixed bg-tertiary-container/20 border border-tertiary-fixed/30 px-2 py-0.5 rounded flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+            1 RÉCORD
+          </span>
+</div>
+<!-- Metric Numbers Strip -->
+<div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-surface-container rounded-lg border border-surface-container-high">
+<div>
+<span class="font-label-sm text-label-sm text-outline block">DURACIÓN</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary">48 min</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-outline block">VOLUMEN</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary">12.450 kg</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-outline block">PR DESTACADO</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary-fixed truncate block">110 kg</span>
+</div>
+</div>
+<p class="mt-2.5 font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed">verified</span>
+          Superaste tu récord histórico de Sentadilla (+5 kg).
+        </p>
+</section>
+<!-- Quick Motivation / Streak Badge -->
+<section class="flex items-center justify-between p-3.5 rounded-xl bg-surface-container/60 border border-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 text-secondary-container flex items-center justify-center border border-secondary-container/40">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">Racha de 3 semanas</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Has cumplido el 100% de tus objetivos semanales</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Shared Component JSON - Active Tab: 'Hoy') -->
+<nav aria-label="Navegación principal" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[68px] px-2 max-w-lg mx-auto pb-safe bg-surface/95 dark:bg-surface/95 backdrop-blur-md border-t border-surface-container-high dark:border-surface-container-high">
+<!-- Tab 1: Hoy (ACTIVE) -->
+<button aria-current="page" class="flex flex-col items-center justify-center text-primary-fixed dark:text-primary-fixed font-bold active:scale-95 transition-transform duration-150 min-w-[64px] py-1">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-label-sm font-label-sm mt-0.5">Hoy</span>
+<!-- Active indicator dot -->
+<span class="w-1 h-1 rounded-full bg-primary-fixed mt-0.5"></span>
+</button>
+<!-- Tab 2: Rutinas (INACTIVE) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 min-w-[64px] py-1">
+<span class="material-symbols-outlined text-[24px]">layers</span>
+<span class="text-label-sm font-label-sm mt-0.5">Rutinas</span>
+<span class="w-1 h-1 rounded-full bg-transparent mt-0.5"></span>
+</button>
+<!-- Tab 3: Ejercicios (INACTIVE) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 min-w-[64px] py-1">
+<span class="material-symbols-outlined text-[24px]">fitness_center</span>
+<span class="text-label-sm font-label-sm mt-0.5">Ejercicios</span>
+<span class="w-1 h-1 rounded-full bg-transparent mt-0.5"></span>
+</button>
+<!-- Tab 4: Progreso (INACTIVE) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 min-w-[64px] py-1">
+<span class="material-symbols-outlined text-[24px]">trending_up</span>
+<span class="text-label-sm font-label-sm mt-0.5">Progreso</span>
+<span class="w-1 h-1 rounded-full bg-transparent mt-0.5"></span>
+</button>
+</nav>
+</div>
+</body></html>

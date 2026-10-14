@@ -5,7 +5,7 @@ Datos 100% locales en el dispositivo (IndexedDB vía Dexie). Sin backend, sin lo
 
 ## Stack
 
-TypeScript (strict) · React 19 · Vite · react-router · Dexie · Zustand · Recharts · vite-plugin-pwa
+TypeScript (strict) · React 19 · Vite · Tailwind v4 · react-router · Dexie · Zustand · Recharts · vite-plugin-pwa · Lucide (iconos) · Geist (fuente)
 Tests: Vitest + Testing Library (+ fake-indexeddb) · E2E: Playwright (viewport móvil)
 
 ## Comandos
@@ -40,7 +40,12 @@ e2e/            tests Playwright
 
 - Componentes funcionales, hooks, nada de clases. TS estricto, sin `any`.
 - Los componentes nunca importan Dexie directamente: usan repositorios de `src/db/`.
-- Mobile-first (≈390px), objetivos táctiles ≥ 44px, tema oscuro por defecto.
+- Mobile-first (≈390px), objetivos táctiles ≥ 44px, tema oscuro único.
+- **Diseño:** la referencia es `design/stitch/` (Kinetic Volt): `kinetic_volt/DESIGN.md` + una captura y un HTML por pantalla. Construye cada pantalla para que se parezca a su `screen.png`. Los HTML son solo referencia (usan CDN): no se copian tal cual ni se ejecutan en la app.
+- Tokens en `src/index.css` (`@theme` de Tailwind). Prohibido usar colores literales en componentes: solo tokens.
+- Todo debe funcionar sin conexión: nada de Google Fonts, CDN ni Material Symbols. Fuente Geist con `@fontsource-variable/geist`, iconos con `lucide-react`.
+- Texto secundario siempre con `text-muted` (acero `#8E9AA8`). El pizarra `#64748B` del prototipo no cumple contraste AA: solo para elementos decorativos.
+- Cifras dinámicas (peso, reps, tiempos, volumen) con `tabular-nums`.
 - Textos de UI en español. Código e identificadores en inglés.
 - Cada feature nueva: dominio + tests → db → UI → tests → `/verify`.
 - Pesos en kg. Fechas en ISO 8601 / timestamps numéricos.
@@ -49,7 +54,7 @@ e2e/            tests Playwright
 
 F0 Entorno · F1 Identidad visual y estructura · F2 Ejercicios y db · F3 Rutinas (días rotativos)
 · F4 Entreno activo · F5 Historial y progreso · F6 Pulido y lanzamiento.
-Plan detallado, tareas y criterios de hecho: `docs/ROADMAP.md` (única fuente de verdad; se trabaja una fase y una tarea cada vez).
+Plan detallado, tareas y criterios de hecho (incluye qué pantalla del prototipo corresponde a cada fase): `docs/ROADMAP.md` (única fuente de verdad; se trabaja una fase y una tarea cada vez).
 
 ## Agentes y skills del proyecto
 

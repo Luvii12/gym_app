@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Gym Routine - Tu Progreso</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed-dim": "#abd600",
+            "on-tertiary-fixed": "#002109",
+            "secondary-container": "#fe6b00",
+            "tertiary": "#ffffff",
+            "on-background": "#d8e4f3",
+            "surface": "#08141f",
+            "on-primary-container": "#556d00",
+            "outline-variant": "#444933",
+            "surface-tint": "#abd600",
+            "surface-container-high": "#202b36",
+            "primary": "#ffffff",
+            "inverse-surface": "#d8e4f3",
+            "on-tertiary": "#003915",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+            "on-primary-fixed-variant": "#3c4d00",
+            "on-error": "#690005",
+            "primary-fixed": "#c3f400",
+            "surface-container-highest": "#2a3642",
+            "outline": "#8e9379",
+            "surface-variant": "#2a3642",
+            "on-tertiary-container": "#007432",
+            "on-secondary-fixed-variant": "#7a3000",
+            "secondary": "#ffb693",
+            "on-secondary": "#561f00",
+            "surface-dim": "#08141f",
+            "on-primary": "#283500",
+            "on-secondary-container": "#572000",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#005321",
+            "surface-container-lowest": "#040f19",
+            "tertiary-container": "#6bff8f",
+            "on-surface": "#d8e4f3",
+            "tertiary-fixed-dim": "#4ae176",
+            "tertiary-fixed": "#6bff8f",
+            "inverse-primary": "#506600",
+            "primary-container": "#c3f400",
+            "surface-bright": "#2f3a46",
+            "secondary-fixed-dim": "#ffb693",
+            "on-secondary-fixed": "#351000",
+            "surface-container": "#15212c",
+            "inverse-on-surface": "#26323d",
+            "on-primary-fixed": "#161e00",
+            "secondary-fixed": "#ffdbcc",
+            "background": "#08141f",
+            "on-surface-variant": "#c4c9ac",
+            "surface-container-low": "#111d27"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-lg": "1.25rem",
+            "margin": "1rem",
+            "space-xl": "1.75rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "label-md": ["Geist"],
+            "headline-lg": ["Geist"],
+            "display-lg": ["Geist"],
+            "label-sm": ["Geist"],
+            "headline-sm": ["Geist"],
+            "body-md": ["Geist"],
+            "headline-xl": ["Geist"],
+            "label-lg": ["Geist"],
+            "display-lg-mobile": ["Geist"],
+            "body-sm": ["Geist"],
+            "headline-md": ["Geist"],
+            "body-lg": ["Geist"],
+            "metric-numeral": ["Geist"]
+          },
+          "fontSize": {
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-lg": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-xl": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-lg-mobile": ["40px", { "lineHeight": "44px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "metric-numeral": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #08141f;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #202b36;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed pb-28">
+<!-- Shell Wrapper constrained for mobile-first max-w-lg -->
+<div class="max-w-lg mx-auto min-h-screen flex flex-col relative bg-surface-dim shadow-2xl">
+<!-- TopAppBar (Shared Component logic executed) -->
+<header class="sticky top-0 z-40 bg-surface/95 backdrop-blur-md border-b border-surface-container-high transition-all">
+<div class="flex justify-between items-center w-full px-4 h-14 max-w-lg mx-auto">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="fitness_center">fitness_center</span>
+<span class="text-headline-md font-headline-md font-extrabold tracking-tight text-primary-fixed">Tu Progreso</span>
+</div>
+<button aria-label="Ajustes de datos" class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface active:scale-95 transition-transform duration-150 flex items-center justify-center" id="btn-settings" onclick="openSettingsModal()">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-4 py-4 space-y-5">
+<!-- Section 1: Exercise 1RM / Max Weight Progression -->
+<section class="bg-surface-container-low border border-surface-container-high rounded-xl p-4 relative overflow-hidden">
+<!-- Header & Dropdown -->
+<div class="flex items-center justify-between mb-3">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Histórico de Cargas (1RM)</span>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary-fixed/10 border border-primary-fixed/20 text-primary-fixed">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span>
+<span class="text-label-sm font-label-sm font-bold">+10.5% (3 meses)</span>
+</div>
+</div>
+<!-- Exercise Selector -->
+<div class="relative mb-4">
+<button class="w-full flex items-center justify-between bg-surface-container px-3.5 py-2.5 rounded-lg border border-surface-container-highest text-left text-on-surface font-headline-sm hover:border-primary-fixed/50 transition-colors">
+<div class="flex items-center gap-2 truncate">
+<span class="material-symbols-outlined text-primary-fixed text-lg" data-icon="fitness_center">fitness_center</span>
+<span class="truncate">Press banca plano con barra</span>
+</div>
+<span class="material-symbols-outlined text-outline text-xl flex-shrink-0" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<!-- Metric Highlight Banner -->
+<div class="flex items-baseline justify-between mb-2 px-1">
+<div>
+<div class="text-label-sm font-label-sm text-outline">Récord Actual Estimado</div>
+<div class="text-display-lg-mobile font-display-lg-mobile text-primary-fixed tracking-tight tabular-nums flex items-baseline gap-1">
+              105 <span class="text-headline-md font-headline-md text-on-surface-variant">kg</span>
+</div>
+</div>
+<div class="text-right">
+<div class="text-label-sm font-label-sm text-outline">Pico Registrado</div>
+<div class="text-headline-sm font-headline-sm text-on-surface tabular-nums">Nov 2024</div>
+</div>
+</div>
+<!-- SVG Progression Trend Chart -->
+<div class="relative w-full h-44 mt-2 pt-2 bg-surface-container-lowest/50 rounded-lg p-2 border border-surface-container-high/60">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 320 120">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#c3f400" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#c3f400" stop-opacity="0.0"></stop>
+</lineargradient>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="0" flood-color="#c3f400" flood-opacity="0.6" stddeviation="3"></fedropshadow>
+</filter>
+</defs>
+<!-- Horizontal Grid lines -->
+<line stroke="#202b36" stroke-dasharray="3,3" stroke-width="1" x1="10" x2="310" y1="20" y2="20"></line>
+<line stroke="#202b36" stroke-dasharray="3,3" stroke-width="1" x1="10" x2="310" y1="60" y2="60"></line>
+<line stroke="#202b36" stroke-width="1" x1="10" x2="310" y1="100" y2="100"></line>
+<!-- Y-Axis labels -->
+<text fill="#8e9379" font-family="Geist" font-size="9" x="12" y="16">110kg</text>
+<text fill="#8e9379" font-family="Geist" font-size="9" x="12" y="56">100kg</text>
+<text fill="#8e9379" font-family="Geist" font-size="9" x="12" y="96">90kg</text>
+<!-- Area Fill -->
+<polygon fill="url(#chartGradient)" points="50,85 160,55 270,25 270,105 50,105"></polygon>
+<!-- Trend Line -->
+<polyline fill="none" filter="url(#glow)" points="50,85 160,55 270,25" stroke="#c3f400" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+<!-- Point 1: Sep (95kg) -->
+<circle cx="50" cy="85" fill="#08141f" r="4.5" stroke="#c3f400" stroke-width="2.5"></circle>
+<text class="tabular-nums" fill="#d8e4f3" font-family="Geist" font-size="10" font-weight="600" text-anchor="middle" x="50" y="74">95 kg</text>
+<text fill="#8e9379" font-family="Geist" font-size="10" text-anchor="middle" x="50" y="116">Sep</text>
+<!-- Point 2: Oct (100kg) -->
+<circle cx="160" cy="55" fill="#08141f" r="4.5" stroke="#c3f400" stroke-width="2.5"></circle>
+<text class="tabular-nums" fill="#d8e4f3" font-family="Geist" font-size="10" font-weight="600" text-anchor="middle" x="160" y="44">100 kg</text>
+<text fill="#8e9379" font-family="Geist" font-size="10" text-anchor="middle" x="160" y="116">Oct</text>
+<!-- Point 3: Nov (105kg) - Peak Pulse Indicator -->
+<circle class="animate-pulse" cx="270" cy="25" fill="#c3f400" fill-opacity="0.3" r="7"></circle>
+<circle cx="270" cy="25" fill="#08141f" r="4.5" stroke="#c3f400" stroke-width="3"></circle>
+<text class="tabular-nums" fill="#c3f400" font-family="Geist" font-size="11" font-weight="700" text-anchor="middle" x="270" y="14">105 kg</text>
+<text fill="#c3f400" font-family="Geist" font-size="10" font-weight="700" text-anchor="middle" x="270" y="116">Nov (Actual)</text>
+</svg>
+</div>
+</section>
+<!-- Section 2: Weekly Volume Bar Chart -->
+<section class="bg-surface-container-low border border-surface-container-high rounded-xl p-4">
+<div class="flex items-center justify-between mb-3">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Volumen semanal total</h2>
+<p class="text-body-sm font-body-sm text-outline">Acumulado de series efectivas</p>
+</div>
+<span class="text-headline-md font-headline-md text-primary-fixed tabular-nums font-bold">46.800 <span class="text-body-sm text-on-surface-variant font-normal">kg</span></span>
+</div>
+<!-- 4-week Bars Grid -->
+<div class="grid grid-cols-4 gap-2.5 pt-3 items-end h-40 bg-surface-container-lowest/60 rounded-lg p-3 border border-surface-container-high/40">
+<!-- Sem 1: 38.200 kg (~65% height) -->
+<div class="flex flex-col items-center h-full justify-end group">
+<span class="text-[10px] font-label-sm text-outline tabular-nums mb-1 font-semibold group-hover:text-on-surface">38.2k</span>
+<div class="w-full bg-surface-container-high rounded-t-sm h-[60%] transition-all group-hover:bg-surface-bright"></div>
+<span class="text-label-sm font-label-sm text-outline mt-2">Sem 1</span>
+</div>
+<!-- Sem 2: 41.500 kg (~72% height) -->
+<div class="flex flex-col items-center h-full justify-end group">
+<span class="text-[10px] font-label-sm text-outline tabular-nums mb-1 font-semibold group-hover:text-on-surface">41.5k</span>
+<div class="w-full bg-surface-container-high rounded-t-sm h-[72%] transition-all group-hover:bg-surface-bright"></div>
+<span class="text-label-sm font-label-sm text-outline mt-2">Sem 2</span>
+</div>
+<!-- Sem 3: 44.100 kg (~82% height) -->
+<div class="flex flex-col items-center h-full justify-end group">
+<span class="text-[10px] font-label-sm text-outline tabular-nums mb-1 font-semibold group-hover:text-on-surface">44.1k</span>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[82%] transition-all group-hover:bg-surface-bright"></div>
+<span class="text-label-sm font-label-sm text-outline mt-2">Sem 3</span>
+</div>
+<!-- Sem 4: 46.800 kg (100% height - Active Peak) -->
+<div class="flex flex-col items-center h-full justify-end relative">
+<div class="absolute -top-1 px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed text-[9px] font-extrabold tracking-tight">
+              MAX
+            </div>
+<span class="text-label-sm font-label-sm text-primary-fixed tabular-nums mb-1 font-bold">46.8k</span>
+<div class="w-full bg-primary-fixed rounded-t shadow-[0_0_12px_rgba(195,244,0,0.35)] h-[95%] transition-transform hover:scale-[1.02]"></div>
+<span class="text-label-sm font-label-sm text-primary-fixed font-bold mt-2">Sem 4</span>
+</div>
+</div>
+</section>
+<!-- Section 3: Record Summary (PRs) Cards Bento Grid -->
+<section class="space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary-container text-lg" data-icon="local_fire_department">local_fire_department</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Récords Personales (PR)</h2>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Actualizado hoy</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- PR 1: Press Banca -->
+<div class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col justify-between hover:border-surface-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-sm font-label-sm text-outline-variant font-bold">PECHO</span>
+<span class="text-[10px] font-label-sm text-primary-fixed bg-primary-fixed/10 px-1.5 py-0.5 rounded">+5 kg</span>
+</div>
+<div class="my-2">
+<div class="text-body-md font-body-md text-on-surface-variant font-medium truncate">Press Banca</div>
+<div class="text-metric-numeral font-metric-numeral text-on-surface tabular-nums">
+                105 <span class="text-body-sm font-normal text-outline">kg</span>
+</div>
+</div>
+<div class="text-[11px] font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="history">history</span>
+<span>Hace 4 días</span>
+</div>
+</div>
+<!-- PR 2: Sentadilla -->
+<div class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col justify-between hover:border-surface-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-sm font-label-sm text-outline-variant font-bold">PIERNAS</span>
+<span class="text-[10px] font-label-sm text-primary-fixed bg-primary-fixed/10 px-1.5 py-0.5 rounded">+10 kg</span>
+</div>
+<div class="my-2">
+<div class="text-body-md font-body-md text-on-surface-variant font-medium truncate">Sentadilla</div>
+<div class="text-metric-numeral font-metric-numeral text-on-surface tabular-nums">
+                130 <span class="text-body-sm font-normal text-outline">kg</span>
+</div>
+</div>
+<div class="text-[11px] font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="history">history</span>
+<span>Hace 1 sem</span>
+</div>
+</div>
+<!-- PR 3: Peso Muerto -->
+<div class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col justify-between hover:border-surface-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-sm font-label-sm text-outline-variant font-bold">ESPALDA</span>
+<span class="text-[10px] font-label-sm text-outline bg-surface-container px-1.5 py-0.5 rounded">Consistente</span>
+</div>
+<div class="my-2">
+<div class="text-body-md font-body-md text-on-surface-variant font-medium truncate">Peso Muerto</div>
+<div class="text-metric-numeral font-metric-numeral text-on-surface tabular-nums">
+                160 <span class="text-body-sm font-normal text-outline">kg</span>
+</div>
+</div>
+<div class="text-[11px] font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="check_circle">check_circle</span>
+<span>Consolidado</span>
+</div>
+</div>
+<!-- PR 4: Dominadas -->
+<div class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col justify-between hover:border-surface-variant transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-label-sm font-label-sm text-outline-variant font-bold">LASTRE</span>
+<span class="text-[10px] font-label-sm text-primary-fixed bg-primary-fixed/10 px-1.5 py-0.5 rounded">Top 5%</span>
+</div>
+<div class="my-2">
+<div class="text-body-md font-body-md text-on-surface-variant font-medium truncate">Dominadas</div>
+<div class="text-metric-numeral font-metric-numeral text-on-surface tabular-nums">
+                +25 <span class="text-body-sm font-normal text-outline">kg</span>
+</div>
+</div>
+<div class="text-[11px] font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="fitness_center">fitness_center</span>
+<span>4 reps máx</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Local Data & Settings (PWA Offline Management) -->
+<section class="bg-surface-container-low border border-surface-container-high rounded-xl p-4 space-y-4">
+<div>
+<div class="flex items-center justify-between mb-1">
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Almacenamiento Local (100% Offline)</h2>
+<span class="material-symbols-outlined text-outline" data-icon="cloud_off">cloud_off</span>
+</div>
+<p class="text-body-sm font-body-sm text-outline">Todos tus datos residen de forma privada en este navegador/dispositivo sin servidores externos.</p>
+</div>
+<!-- Status indicator -->
+<div class="flex items-center gap-2.5 px-3 py-2 bg-surface-container rounded-lg border border-surface-container-highest">
+<span class="h-2.5 w-2.5 rounded-full bg-primary-fixed animate-pulse"></span>
+<span class="text-label-md font-label-md text-on-surface font-semibold">28 entrenos guardados en este dispositivo</span>
+</div>
+<!-- Action buttons -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+<!-- Export JSON Button -->
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-surface-container-high border border-surface-container-highest text-on-surface font-label-lg hover:bg-surface-bright active:scale-95 transition-all" onclick="triggerToast('Copia JSON descargada correctamente')">
+<span class="material-symbols-outlined text-primary-fixed text-lg" data-icon="file_download">file_download</span>
+<span>Exportar copia (JSON)</span>
+</button>
+<!-- Import Backup Button -->
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-surface-container-high border border-surface-container-highest text-on-surface font-label-lg hover:bg-surface-bright active:scale-95 transition-all" onclick="triggerToast('Selecciona el archivo JSON de respaldo')">
+<span class="material-symbols-outlined text-outline text-lg" data-icon="upload_file">upload_file</span>
+<span>Importar copia de seguridad</span>
+</button>
+</div>
+<!-- Danger Zone Box -->
+<div class="pt-2 border-t border-surface-container-high">
+<div class="flex items-center justify-between py-2">
+<div>
+<span class="text-label-md font-label-md text-error block">Zona de Peligro</span>
+<span class="text-[11px] font-body-sm text-outline">Acción destructiva irreversible</span>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-error-container/40 border border-error/30 text-error hover:bg-error-container active:scale-95 transition-all text-label-md font-label-md flex items-center gap-1.5" onclick="confirmDeleteData()">
+<span class="material-symbols-outlined text-base" data-icon="delete_forever">delete_forever</span>
+<span>Borrar todos los datos locales</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Shared Component JSON Blueprint & Logic) -->
+<!-- Destination count: 4, label_texts: ["Hoy", "Rutinas", "Ejercicios", "Progreso"] -->
+<!-- Active State: 'Progreso' (Exact match to current page intent) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface/95 dark:bg-surface/95 backdrop-blur-md border-t border-surface-container-high dark:border-surface-container-high">
+<div class="flex justify-around items-center h-[68px] px-2 max-w-lg mx-auto pb-safe">
+<!-- Tab 1: Hoy (Inactive) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 flex-1">
+<span class="material-symbols-outlined" data-icon="local_fire_department">local_fire_department</span>
+<span class="text-label-sm font-label-sm mt-0.5">Hoy</span>
+</button>
+<!-- Tab 2: Rutinas (Inactive) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 flex-1">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span class="text-label-sm font-label-sm mt-0.5">Rutinas</span>
+</button>
+<!-- Tab 3: Ejercicios (Inactive) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 flex-1">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="text-label-sm font-label-sm mt-0.5">Ejercicios</span>
+</button>
+<!-- Tab 4: Progreso (ACTIVE) -->
+<button class="flex flex-col items-center justify-center text-primary-fixed dark:text-primary-fixed font-bold active:scale-95 transition-transform duration-150 flex-1 relative">
+<span class="material-symbols-outlined" data-icon="trending_up" data-weight="fill" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="text-label-sm font-label-sm mt-0.5">Progreso</span>
+<!-- Active Dot Indicator -->
+<span class="w-1 h-1 rounded-full bg-primary-fixed mt-0.5"></span>
+</button>
+</div>
+</nav>
+<!-- Feedback Toast -->
+<div class="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-surface-container-highest text-on-surface px-4 py-2.5 rounded-lg border border-primary-fixed shadow-xl flex items-center gap-2 transform transition-all duration-200 opacity-0 pointer-events-none scale-90" id="toast">
+<span class="material-symbols-outlined text-primary-fixed text-lg" data-icon="check_circle">check_circle</span>
+<span class="text-label-md font-label-md" id="toast-message">Notificación</span>
+</div>
+<!-- Quick Settings Modal (Triggered by Top Bar Settings Icon) -->
+<div class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity" id="settings-modal">
+<div class="bg-surface-container border border-surface-container-high rounded-t-2xl sm:rounded-xl w-full max-w-md p-5 space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-200">
+<div class="flex items-center justify-between pb-3 border-b border-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="settings">settings</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Configuración y Respaldo</h3>
+</div>
+<button class="p-1 rounded text-outline hover:text-on-surface" onclick="closeSettingsModal()">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center py-1">
+<div>
+<div class="text-label-lg font-label-lg text-on-surface">Unidad de Peso</div>
+<div class="text-body-sm font-body-sm text-outline">Kilogramos (kg) vs Libras (lb)</div>
+</div>
+<div class="bg-surface-container-highest p-1 rounded-lg flex gap-1">
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed text-label-sm font-label-sm font-bold rounded">KG</span>
+<span class="px-2 py-0.5 text-outline text-label-sm font-label-sm font-semibold rounded">LB</span>
+</div>
+</div>
+<div class="flex justify-between items-center py-1">
+<div>
+<div class="text-label-lg font-label-lg text-on-surface">Temporizador de Descanso</div>
+<div class="text-body-sm font-body-sm text-outline">Alerta sonora y vibración háptica</div>
+</div>
+<input checked="" class="rounded border-outline text-primary-fixed focus:ring-0 bg-surface-container-highest h-5 w-5 cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex justify-between items-center py-1">
+<div>
+<div class="text-label-lg font-label-lg text-on-surface">Modo 100% Offline</div>
+<div class="text-body-sm font-body-sm text-outline">Sin sincronización en la nube</div>
+</div>
+<span class="text-label-sm font-label-sm text-primary-fixed bg-primary-fixed/10 px-2 py-1 rounded font-bold">ACTIVO</span>
+</div>
+</div>
+<button class="w-full py-3 rounded-lg bg-primary-fixed text-on-primary-fixed font-headline-sm font-bold active:scale-98 transition-transform" onclick="closeSettingsModal()">
+          Listo
+        </button>
+</div>
+</div>
+</div>
+<!-- Interactive Logic -->
+<script>
+    function triggerToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = message;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'scale-90');
+      toast.classList.add('opacity-100', 'scale-100');
+      
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'scale-100');
+        toast.classList.add('opacity-0', 'pointer-events-none', 'scale-90');
+      }, 2500);
+    }
+
+    function confirmDeleteData() {
+      if (confirm('¿Seguro que deseas eliminar todos los entrenamientos locales? Esta acción no se puede deshacer.')) {
+        triggerToast('Datos eliminados de la memoria local');
+      }
+    }
+
+    function openSettingsModal() {
+      const modal = document.getElementById('settings-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeSettingsModal() {
+      const modal = document.getElementById('settings-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  </script>
+</body></html>

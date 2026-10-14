@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Catálogo de Ejercicios - Gym Routine</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Geist Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed-dim": "#abd600",
+            "on-tertiary-fixed": "#002109",
+            "secondary-container": "#fe6b00",
+            "tertiary": "#ffffff",
+            "on-background": "#d8e4f3",
+            "surface": "#08141f",
+            "on-primary-container": "#556d00",
+            "outline-variant": "#444933",
+            "surface-tint": "#abd600",
+            "surface-container-high": "#202b36",
+            "primary": "#ffffff",
+            "inverse-surface": "#d8e4f3",
+            "on-tertiary": "#003915",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+            "on-primary-fixed-variant": "#3c4d00",
+            "on-error": "#690005",
+            "primary-fixed": "#c3f400",
+            "surface-container-highest": "#2a3642",
+            "outline": "#8e9379",
+            "surface-variant": "#2a3642",
+            "on-tertiary-container": "#007432",
+            "on-secondary-fixed-variant": "#7a3000",
+            "secondary": "#ffb693",
+            "on-secondary": "#561f00",
+            "surface-dim": "#08141f",
+            "on-primary": "#283500",
+            "on-secondary-container": "#572000",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#005321",
+            "surface-container-lowest": "#040f19",
+            "tertiary-container": "#6bff8f",
+            "on-surface": "#d8e4f3",
+            "tertiary-fixed-dim": "#4ae176",
+            "tertiary-fixed": "#6bff8f",
+            "inverse-primary": "#506600",
+            "primary-container": "#c3f400",
+            "surface-bright": "#2f3a46",
+            "secondary-fixed-dim": "#ffb693",
+            "on-secondary-fixed": "#351000",
+            "surface-container": "#15212c",
+            "inverse-on-surface": "#26323d",
+            "on-primary-fixed": "#161e00",
+            "secondary-fixed": "#ffdbcc",
+            "background": "#08141f",
+            "on-surface-variant": "#c4c9ac",
+            "surface-container-low": "#111d27"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-lg": "1.25rem",
+            "margin": "1rem",
+            "space-xl": "1.75rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "label-md": ["Geist", "sans-serif"],
+            "headline-lg": ["Geist", "sans-serif"],
+            "display-lg": ["Geist", "sans-serif"],
+            "label-sm": ["Geist", "sans-serif"],
+            "headline-sm": ["Geist", "sans-serif"],
+            "body-md": ["Geist", "sans-serif"],
+            "headline-xl": ["Geist", "sans-serif"],
+            "label-lg": ["Geist", "sans-serif"],
+            "display-lg-mobile": ["Geist", "sans-serif"],
+            "body-sm": ["Geist", "sans-serif"],
+            "headline-md": ["Geist", "sans-serif"],
+            "body-lg": ["Geist", "sans-serif"],
+            "metric-numeral": ["Geist", "sans-serif"]
+          },
+          "fontSize": {
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-lg": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-xl": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-lg-mobile": ["40px", { "lineHeight": "44px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "metric-numeral": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    /* Custom scrollbar hiding for clean app feel */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .tap-highlight-transparent {
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed min-h-screen flex justify-center selection:font-bold">
+<!-- Mobile Viewport Container (390px x 844px max constraint) -->
+<div class="w-full max-w-lg bg-surface min-h-screen flex flex-col relative pb-[120px] shadow-2xl">
+<!-- TopAppBar (Shared Component Source of Truth) -->
+<header class="bg-surface dark:bg-surface border-b border-surface-container-high dark:border-surface-container-high sticky top-0 z-40">
+<div class="flex justify-between items-center w-full px-4 h-14 max-w-lg mx-auto">
+<div class="flex items-center space-x-2.5">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container text-primary-fixed dark:text-primary-fixed active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-[22px]">fitness_center</span>
+</button>
+<span class="text-headline-md font-headline-md font-extrabold tracking-tight text-primary-fixed dark:text-primary-fixed">Gym Routine</span>
+</div>
+<button aria-label="Ajustes" class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-4 pt-4 flex flex-col gap-4">
+<!-- Section Title & Counter -->
+<div class="flex items-baseline justify-between pt-1">
+<h1 class="text-headline-lg font-headline-lg text-tertiary tracking-tight">Catálogo de Ejercicios</h1>
+<span class="text-label-md font-label-md text-outline font-semibold tracking-wider uppercase">142 Activos</span>
+</div>
+<!-- Tactical Search Bar -->
+<div class="relative w-full">
+<div class="relative flex items-center w-full bg-surface-container-low rounded-lg border border-surface-container-high focus-within:border-primary-fixed focus-within:ring-1 focus-within:ring-primary-fixed transition-all duration-150">
+<div class="pl-3.5 pr-2 flex items-center justify-center text-outline pointer-events-none">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full bg-transparent border-0 text-on-surface placeholder:text-outline text-body-md font-body-md py-3 pl-0 pr-10 focus:ring-0 focus:outline-none" id="exercise-search" placeholder="Buscar ejercicio o músculo..." type="text"/>
+<button aria-label="Limpiar búsqueda" class="absolute right-2.5 w-7 h-7 flex items-center justify-center rounded-full text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors active:scale-95" id="clear-search-btn" onclick="document.getElementById('exercise-search').value = ''; this.classList.add('hidden');" type="button">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+<!-- Horizontal Scrollable Filter Chips -->
+<div class="w-full overflow-hidden -mx-4 px-4">
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+<!-- Active Chip: Todos -->
+<button class="shrink-0 h-10 px-4 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-md text-label-md font-bold flex items-center justify-center shadow-sm active:scale-95 transition-transform duration-150">
+            Todos
+          </button>
+<!-- Inactive Chips -->
+<button class="shrink-0 h-10 px-4 rounded-lg bg-surface-container-low border border-surface-container-high text-on-surface-variant hover:text-on-surface hover:border-outline font-label-md text-label-md active:scale-95 transition-transform duration-150">
+            Pecho
+          </button>
+<button class="shrink-0 h-10 px-4 rounded-lg bg-surface-container-low border border-surface-container-high text-on-surface-variant hover:text-on-surface hover:border-outline font-label-md text-label-md active:scale-95 transition-transform duration-150">
+            Espalda
+          </button>
+<button class="shrink-0 h-10 px-4 rounded-lg bg-surface-container-low border border-surface-container-high text-on-surface-variant hover:text-on-surface hover:border-outline font-label-md text-label-md active:scale-95 transition-transform duration-150">
+            Piernas
+          </button>
+<button class="shrink-0 h-10 px-4 rounded-lg bg-surface-container-low border border-surface-container-high text-on-surface-variant hover:text-on-surface hover:border-outline font-label-md text-label-md active:scale-95 transition-transform duration-150">
+            Hombros
+          </button>
+<button class="shrink-0 h-10 px-4 rounded-lg bg-surface-container-low border border-surface-container-high text-on-surface-variant hover:text-on-surface hover:border-outline font-label-md text-label-md active:scale-95 transition-transform duration-150">
+            Brazos
+          </button>
+<button class="shrink-0 h-10 px-4 rounded-lg bg-surface-container-low border border-surface-container-high text-on-surface-variant hover:text-on-surface hover:border-outline font-label-md text-label-md active:scale-95 transition-transform duration-150">
+            Core
+          </button>
+</div>
+</div>
+<!-- Exercise List Stack -->
+<div class="flex flex-col gap-3 mt-1">
+<!-- Exercise Item 1: Press banca plano con barra -->
+<article class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col gap-2.5 active:bg-surface-container transition-colors duration-150 cursor-pointer">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed text-label-sm font-label-sm uppercase tracking-wider">
+                  Pecho
+                </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-outline text-label-sm font-label-sm">
+                  Predeterminado
+                </span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-tertiary">Press banca plano con barra</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Pecho mayor, tríceps, deltoides anterior</p>
+</div>
+<button aria-label="Ver detalles" class="w-10 h-10 shrink-0 flex items-center justify-center rounded-lg text-outline hover:text-primary-fixed hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+<!-- PR Record Pill -->
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high/60">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-container border border-surface-container-high text-primary-fixed font-label-md text-label-md font-bold">
+<span>🏆 PR: 105 kg</span>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Último: 100 kg × 5</span>
+</div>
+</article>
+<!-- Exercise Item 2: Dominadas lastradas -->
+<article class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col gap-2.5 active:bg-surface-container transition-colors duration-150 cursor-pointer">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed text-label-sm font-label-sm uppercase tracking-wider">
+                  Espalda
+                </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded border border-primary-fixed text-primary-fixed text-label-sm font-label-sm font-bold">
+                  Personalizado
+                </span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-tertiary">Dominadas lastradas</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Dorsal ancho, bíceps</p>
+</div>
+<button aria-label="Ver detalles" class="w-10 h-10 shrink-0 flex items-center justify-center rounded-lg text-outline hover:text-primary-fixed hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+<!-- PR Record Pill -->
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high/60">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-container border border-surface-container-high text-primary-fixed font-label-md text-label-md font-bold">
+<span>🏆 PR: +25 kg</span>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Último: +20 kg × 6</span>
+</div>
+</article>
+<!-- Exercise Item 3: Sentadilla trasera con barra -->
+<article class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col gap-2.5 active:bg-surface-container transition-colors duration-150 cursor-pointer">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed text-label-sm font-label-sm uppercase tracking-wider">
+                  Piernas
+                </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-outline text-label-sm font-label-sm">
+                  Predeterminado
+                </span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-tertiary">Sentadilla trasera con barra</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Cuádriceps, glúteos</p>
+</div>
+<button aria-label="Ver detalles" class="w-10 h-10 shrink-0 flex items-center justify-center rounded-lg text-outline hover:text-primary-fixed hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+<!-- PR Record Pill -->
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high/60">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-container border border-surface-container-high text-primary-fixed font-label-md text-label-md font-bold">
+<span>🏆 PR: 130 kg</span>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Último: 125 kg × 4</span>
+</div>
+</article>
+<!-- Exercise Item 4: Press militar de pie -->
+<article class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col gap-2.5 active:bg-surface-container transition-colors duration-150 cursor-pointer">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed text-label-sm font-label-sm uppercase tracking-wider">
+                  Hombros
+                </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-outline text-label-sm font-label-sm">
+                  Predeterminado
+                </span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-tertiary">Press militar de pie</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Deltoides, tríceps</p>
+</div>
+<button aria-label="Ver detalles" class="w-10 h-10 shrink-0 flex items-center justify-center rounded-lg text-outline hover:text-primary-fixed hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high/60">
+<span class="text-label-sm font-label-sm text-outline">Sin registro de 1RM oficial</span>
+<span class="text-label-sm font-label-sm text-outline">Último: 60 kg × 8</span>
+</div>
+</article>
+<!-- Exercise Item 5: Elevaciones laterales con mancuerna -->
+<article class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col gap-2.5 active:bg-surface-container transition-colors duration-150 cursor-pointer">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed text-label-sm font-label-sm uppercase tracking-wider">
+                  Hombros
+                </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-high text-outline text-label-sm font-label-sm">
+                  Predeterminado
+                </span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-tertiary">Elevaciones laterales con mancuerna</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Deltoides lateral</p>
+</div>
+<button aria-label="Ver detalles" class="w-10 h-10 shrink-0 flex items-center justify-center rounded-lg text-outline hover:text-primary-fixed hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high/60">
+<span class="text-label-sm font-label-sm text-outline">Aislamiento hipertrofia</span>
+<span class="text-label-sm font-label-sm text-outline">Último: 14 kg × 15</span>
+</div>
+</article>
+</div>
+</main>
+<!-- Contextual Floating Action Button (FAB): + Nuevo Ejercicio -->
+<div class="fixed bottom-[84px] right-4 z-40 max-w-lg mx-auto pointer-events-auto">
+<button class="h-[52px] px-5 rounded-full bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary-fixed font-headline-sm text-headline-sm font-bold flex items-center gap-2 shadow-[0_8px_24px_rgba(195,244,0,0.25)] active:scale-95 transition-all duration-150 cursor-pointer" type="button">
+<span class="material-symbols-outlined text-[22px] font-bold">add</span>
+<span>Nuevo Ejercicio</span>
+</button>
+</div>
+<!-- BottomNavBar (Shared Component Source of Truth) -->
+<!-- Active Destination Determined: 'Ejercicios' (Index 2 matches page domain exactly) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[68px] px-2 max-w-lg mx-auto pb-safe bg-surface/95 dark:bg-surface/95 backdrop-blur-md border-t border-surface-container-high dark:border-surface-container-high">
+<!-- Tab 1: Hoy -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 w-16 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">local_fire_department</span>
+<span class="text-label-sm font-label-sm mt-0.5">Hoy</span>
+</a>
+<!-- Tab 2: Rutinas -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 w-16 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">layers</span>
+<span class="text-label-sm font-label-sm mt-0.5">Rutinas</span>
+</a>
+<!-- Tab 3: Ejercicios (ACTIVE MANDATE) -->
+<a class="flex flex-col items-center justify-center text-primary-fixed dark:text-primary-fixed font-bold hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 w-16 py-1 relative" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="text-label-sm font-label-sm mt-0.5">Ejercicios</span>
+<!-- Subtle Active Indicator Dot -->
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed mt-0.5"></span>
+</a>
+<!-- Tab 4: Progreso -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline hover:text-primary-fixed dark:hover:text-primary-fixed active:scale-95 transition-transform duration-150 w-16 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">trending_up</span>
+<span class="text-label-sm font-label-sm mt-0.5">Progreso</span>
+</a>
+</nav>
+</div>
+<!-- Inline Script for UI Micro-Interactions -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('exercise-search');
+      const clearBtn = document.getElementById('clear-search-btn');
+
+      if (searchInput && clearBtn) {
+        // Toggle clear button visibility on typing
+        searchInput.addEventListener('input', () => {
+          if (searchInput.value.trim().length > 0) {
+            clearBtn.classList.remove('hidden');
+          } else {
+            clearBtn.classList.add('hidden');
+          }
+        });
+
+        // Initialize state
+        if (searchInput.value.trim().length === 0) {
+          clearBtn.classList.add('hidden');
+        }
+      }
+
+      // Filter chips click state toggle
+      const chips = document.querySelectorAll('.overflow-x-auto button');
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => {
+            c.className = 'shrink-0 h-10 px-4 rounded-lg bg-surface-container-low border border-surface-container-high text-on-surface-variant hover:text-on-surface hover:border-outline font-label-md text-label-md active:scale-95 transition-transform duration-150';
+          });
+          chip.className = 'shrink-0 h-10 px-4 rounded-lg bg-primary-fixed text-on-primary-fixed font-label-md text-label-md font-bold flex items-center justify-center shadow-sm active:scale-95 transition-transform duration-150';
+        });
+      });
+    });
+  </script>
+</body></html>

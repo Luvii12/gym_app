@@ -5,21 +5,26 @@ Marca `[x]` al terminar cada tarea. Cualquier idea nueva va al **Backlog**, no a
 
 ## Decisiones cerradas
 
-| Tema               | Decisión                                                                                                                  |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| Plataforma         | PWA instalable, offline                                                                                                   |
-| Datos              | 100 % locales (IndexedDB con Dexie). Sin backend ni login                                                                 |
-| Stack              | TypeScript estricto + React 19 + Vite                                                                                     |
-| Rutina             | **Días rotativos** (A/B/C, Push/Pull/Legs…). La app propone "el siguiente" según la última sesión completada              |
-| Registro por serie | Solo **peso (kg) y repeticiones**                                                                                         |
-| Estilo visual      | **Oscuro, minimalista, limpio y con identidad propia.** Números grandes, botones táctiles ≥ 44px, un solo color de acento |
-| Idioma             | UI en español, código en inglés                                                                                           |
+| Tema               | Decisión                                                                                                                                                                       |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Plataforma         | PWA instalable, offline                                                                                                                                                        |
+| Datos              | 100 % locales (IndexedDB con Dexie). Sin backend ni login                                                                                                                      |
+| Stack              | TypeScript estricto + React 19 + Vite + **Tailwind v4 compilado** + react-router                                                                                               |
+| Rutina             | **Días rotativos** (A/B/C, Push/Pull/Legs…). La app propone "el siguiente" según la última sesión completada. Los días de _descanso activo_ no cuentan en la rotación          |
+| Registro por serie | **Peso (kg) y repeticiones.** Peso 0 = solo cuerpo; en lastradas, el peso es el lastre añadido                                                                                 |
+| Repeticiones       | En la rutina se fijan como **rango** (p. ej. 8-10). La serie registrada guarda las reales                                                                                      |
+| Identidad visual   | **Kinetic Volt**, del prototipo de Stitch (`design/stitch/`). Es la referencia: `DESIGN.md` + 6 capturas + HTML. Sustituye a la propuesta Disco/Barra                          |
+| Colores con rol    | Lima `#C3F400` = acción, activo y récords · Naranja `#FE6B00` = temporizadores y descanso · Verde `#4AE176` = completado. Fondo `#08141F`                                      |
+| Texto secundario   | Usar acero `#8E9AA8` (≥ 5:1). El pizarra `#64748B` del prototipo **no cumple AA** y solo vale para elementos decorativos                                                       |
+| Fuente e iconos    | **Geist** y **Lucide**, ambos empaquetados en la app. Nada de Google Fonts ni CDN (rompen el modo offline)                                                                     |
+| Fidelidad          | Cada pantalla se construye para parecerse a su captura de `design/stitch/`. Si hay que desviarse (accesibilidad, offline, datos que no existen), se anota en el registro abajo |
+| Idioma             | UI en español, código en inglés                                                                                                                                                |
 
 ## Reglas de trabajo
 
 1. Empezar cada sesión leyendo este archivo y retomar la primera tarea sin marcar.
 2. Cada tarea se hace con `/new-feature`: dominio + tests → db → UI → tests → `/verify`.
-3. Una fase termina cuando se cumple su **Criterio de hecho**, no antes. Al cerrarla: `/verify`, revisión de `qa-tester` (y `pwa-reviewer` en F0 y F5) y commit.
+3. Una fase termina cuando se cumple su **Criterio de hecho**, no antes. Al cerrarla: `/verify`, revisión de `qa-tester` (y `pwa-reviewer` en F0 y F6) y commit.
 4. Si el plan cambia, se edita aquí y se anota en el **Registro de cambios**. No se cambia de rumbo "de palabra".
 
 ---
@@ -32,69 +37,74 @@ Marca `[x]` al terminar cada tarea. Cualquier idea nueva va al **Backlog**, no a
 
 ## F1 — Identidad visual y estructura de la app
 
-**Objetivo:** una base visual y de navegación sobre la que construir todo lo demás, para no rehacer la UI después.
+**Objetivo:** la base visual y de navegación del prototipo, sobre la que se construye todo lo demás.
 
-- [ ] F1.1 Dirección visual: paleta (4-6 colores), tipografía, escala de espacios y radios. Con `frontend-design` y `ui-ux-pro-max`. Se aprueba antes de codificar
-- [ ] F1.2 Tokens CSS (variables) y componentes base: `Button`, `Card`, `Input numérico`, `Stepper (+/−)`, `EmptyState`
-- [ ] F1.3 Router y layout con barra inferior: **Hoy · Rutinas · Ejercicios · Progreso**
-- [ ] F1.4 Iconos PWA reales (PNG 192/512 maskable + apple-touch-icon) con la identidad elegida
+- [x] F1.1 Dirección visual: Kinetic Volt (prototipo de Stitch en `design/stitch/`)
+- [x] F1.2 Tokens en Tailwind v4 (`@theme`) copiados de `DESIGN.md`, fuente Geist y iconos Lucide, todo empaquetado
+- [x] F1.3 Componentes base: `Button` (primario, secundario, peligro), `Card` (niveles de elevación), `Badge`/`Pill`, `Stepper` (+/−), `ProgressBar`, `EmptyState`
+- [x] F1.4 Layout: cabecera (logo y ajustes), barra inferior de 4 pestañas con punto de activo (Hoy · Rutinas · Ejercicios · Progreso), router y pantallas vacías (incluida Ajustes)
+- [x] F1.5 Iconos PWA reales (PNG 192/512 maskable + apple-touch-icon) y `theme-color` con la identidad
 
-**Criterio de hecho:** la app navega entre 4 pantallas vacías con el estilo final, instalada en el móvil se ve bien, y los componentes base tienen test.
+**Criterio de hecho:** la app navega entre sus pantallas con el estilo del prototipo, instalada en el móvil se ve bien, y los componentes base tienen test.
 
 ## F2 — Ejercicios y base de datos
 
-**Objetivo:** catálogo de ejercicios y la capa de datos.
+**Objetivo:** catálogo de ejercicios y la capa de datos. Pantalla de referencia: `5._ejercicios_y_filtros`.
 
-- [ ] F2.1 Tipos de dominio (`Exercise`, `Routine`, `RoutineDay`, `WorkoutSession`, `LoggedSet`) en `src/domain/`
+- [ ] F2.1 Tipos de dominio (`Exercise` con grupo muscular, músculos trabajados y equipamiento; `Routine`, `RoutineDay`, `WorkoutSession`, `LoggedSet`) en `src/domain/`
 - [ ] F2.2 Esquema Dexie v1 + repositorios en `src/db/` (única puerta a IndexedDB) con tests sobre `fake-indexeddb`
 - [ ] F2.3 Catálogo semilla (~60-80 ejercicios en español) con la skill `seed-exercises`; carga inicial idempotente
-- [ ] F2.4 Pantalla Ejercicios: lista, búsqueda y filtro por grupo muscular
-- [ ] F2.5 Crear, editar y borrar ejercicios personalizados (los de la semilla no se borran)
+- [ ] F2.4 Pantalla Ejercicios: buscador, filtros por grupo muscular y tarjetas con etiquetas "Predeterminado" / "Personalizado"
+- [ ] F2.5 Botón "Nuevo ejercicio": crear, editar y borrar personalizados (los de la semilla no se borran)
 
-**Criterio de hecho:** abrir la app por primera vez muestra el catálogo; crear un ejercicio propio sobrevive a recargar la página; tests de `db/` en verde.
+**Criterio de hecho:** abrir la app por primera vez muestra el catálogo; crear un ejercicio propio sobrevive a recargar; tests de `db/` en verde.
+
+> En las tarjetas, el PR y el "Último: 100 kg × 5" se muestran cuando hay sesiones registradas; se conectan en F5.
 
 ## F3 — Rutinas
 
-**Objetivo:** definir tus rutinas con días rotativos.
+**Objetivo:** definir tus rutinas con días rotativos. Pantalla de referencia: `4._rutinas_y_editor`.
 
-- [ ] F3.1 Dominio: `nextDay(routine, sessions)` — propone el siguiente día según la última sesión completada (con tests, incluidos casos límite: sin sesiones, rutina de 1 día, día borrado)
-- [ ] F3.2 Repositorio de rutinas y ajuste "rutina activa"
-- [ ] F3.3 Lista de rutinas y crear/renombrar/duplicar/borrar
-- [ ] F3.4 Editor de rutina: añadir/quitar/reordenar días
-- [ ] F3.5 Editor de día: elegir ejercicios del catálogo y fijar series, repeticiones objetivo y descanso; reordenar
+- [ ] F3.1 Dominio: `nextDay(routine, sessions)` — propone el siguiente día de entrenamiento según la última sesión completada, saltando los días de descanso (con tests: sin sesiones, rutina de 1 día, día borrado)
+- [ ] F3.2 Repositorio de rutinas y "rutina activa"
+- [ ] F3.3 Lista de rutinas: "Rutina activa" arriba, "Activar esta rutina", menú ⋮ (renombrar, duplicar, borrar) y "Nueva rutina"
+- [ ] F3.4 Editor de rutina: días numerados, "Añadir día de entreno", día de **descanso activo**, días por semana
+- [ ] F3.5 Editor de día: ejercicios del catálogo con series, rango de repeticiones y descanso; reordenar arrastrando
 
 **Criterio de hecho:** puedes montar tu rutina real completa (p. ej. Push/Pull/Legs) en menos de 5 minutos, y `nextDay` está cubierta por tests.
 
 ## F4 — Entreno activo (el corazón de la app)
 
-**Objetivo:** registrar un entreno en el gym con el móvil en la mano, rápido y sin perder datos.
+**Objetivo:** registrar un entreno en el gym con el móvil en la mano, rápido y sin perder datos. Pantallas de referencia: `1._hoy_dashboard`, `2._entreno_activo`, `3._entreno_con_temporizador`.
 
-- [ ] F4.1 Pantalla **Hoy**: muestra el día propuesto por `nextDay` y botón "Empezar"; opción de elegir otro día o entreno libre
-- [ ] F4.2 Sesión en curso: lista de ejercicios del día, series con peso/reps **precargados con lo último que hiciste**
-- [ ] F4.3 Registro rápido: steppers +/−, marcar serie como hecha, añadir/quitar serie
-- [ ] F4.4 Temporizador de descanso automático al completar una serie (con vibración si el dispositivo la soporta)
-- [ ] F4.5 Persistencia continua: cada serie se guarda al momento; si cierras la app a mitad, se **reanuda** la sesión
-- [ ] F4.6 Terminar o descartar sesión; añadir un ejercicio extra al vuelo
-- [ ] F4.7 Mantener la pantalla encendida durante el entreno (Wake Lock, con degradación si no existe)
+- [ ] F4.1 Pantalla **Hoy**: tarjeta "Siguiente rutina" (día propuesto por `nextDay`, ejercicios, series y rango de peso) con "Empezar entreno"; "Elegir otra" y "Entreno libre"
+- [ ] F4.2 Sesión en curso: cronómetro y nombre del día, barra de progreso general (7/16 series) y una tarjeta por ejercicio con sus series
+- [ ] F4.3 Fila de serie: pesos y repeticiones con steppers, "Última vez" y "Objetivo" como ayuda, casilla de completar (la serie hecha se atenúa y tacha)
+- [ ] F4.4 Añadir serie, añadir ejercicio al vuelo, quitar ejercicio (menú ⋮)
+- [ ] F4.5 Descanso automático al completar una serie: banner inferior con cuenta atrás, "+30 s" y "Saltar"; hoja completa con −15 s / +15 s / +30 s y "Siguiente: Serie 3"
+- [ ] F4.6 Aviso al acabar el descanso: vibración y sonido, ambos activables
+- [ ] F4.7 Persistencia continua: cada serie se guarda al momento; si cierras la app, se **reanuda** la sesión
+- [ ] F4.8 Terminar o descartar sesión; mantener la pantalla encendida durante el entreno (Wake Lock, con degradación si no existe)
 
 **Criterio de hecho:** E2E en móvil de un entreno completo (empezar → registrar series → descanso → terminar) y de la reanudación tras recargar; ninguna pérdida de datos al cerrar la app.
 
 ## F5 — Historial y progreso
 
-**Objetivo:** ver que estás mejorando.
+**Objetivo:** ver que estás mejorando. Pantalla de referencia: `6._progreso_y_ajustes`.
 
-- [ ] F5.1 Dominio con tests: 1RM estimado (Epley), PR por ejercicio, volumen por sesión y por semana
+- [ ] F5.1 Dominio con tests: 1RM estimado (Epley), PR por ejercicio y su mejora respecto al anterior, volumen por sesión y por semana, racha de semanas
 - [ ] F5.2 Historial: lista de sesiones y detalle; editar o borrar una sesión
-- [ ] F5.3 Pantalla Progreso: gráfica por ejercicio (peso máximo / 1RM estimado) y volumen semanal (Recharts)
-- [ ] F5.4 Marcar récords personales (PR) al terminar una serie y en el historial
+- [ ] F5.3 Progreso: gráfica del 1RM por ejercicio (selector, récord actual, pico, variación a 3 meses) y volumen semanal con la mejor semana resaltada (Recharts)
+- [ ] F5.4 Tarjetas de récords personales por grupo muscular, con "hace N días"
+- [ ] F5.5 En **Hoy**: "Último entreno" (duración, volumen, PR destacado) y "Racha de N semanas"; PR marcados al terminar una serie
 
-**Criterio de hecho:** con datos de varias semanas (seed de prueba), las gráficas y los PR coinciden con el cálculo manual de los tests.
+**Criterio de hecho:** con datos de varias semanas (seed de prueba), las gráficas, los PR y la racha coinciden con el cálculo manual de los tests.
 
-## F6 — Pulido y lanzamiento
+## F6 — Ajustes, pulido y lanzamiento
 
 **Objetivo:** que sea fiable y la uses a diario.
 
-- [ ] F6.1 Exportar e importar todo en JSON, con validación del archivo importado y confirmación antes de sobrescribir
+- [ ] F6.1 Ajustes: almacenamiento local ("N entrenos guardados"), exportar e importar JSON con validación y confirmación, y "Borrar todos los datos" con confirmación dentro de la app
 - [ ] F6.2 Pedir almacenamiento persistente (`navigator.storage.persist`) para que el navegador no borre los datos
 - [ ] F6.3 Offline completo verificado (modo avión tras la primera carga) con `pwa-reviewer`
 - [ ] F6.4 Lighthouse PWA ≥ 90 y accesibilidad ≥ 90
@@ -107,8 +117,16 @@ Marca `[x]` al terminar cada tarea. Cualquier idea nueva va al **Backlog**, no a
 
 ## Backlog (fuera de alcance de la v1)
 
-Medidas corporales y peso · RPE y notas por serie · tipos de serie (calentamiento, fallo, drop set) · calculadora de discos · plantillas de rutinas · sincronización entre dispositivos · notificaciones · unidades en lb.
+Barra cargada que muestra los discos a medida que haces series (idea de la propuesta Disco/Barra, como indicador de progreso del entreno) · medidas corporales y peso · RPE y notas por serie · tipos de serie (calentamiento, fallo, drop set) · peso asistido en dominadas · calculadora de discos · plantillas de rutinas · sincronización entre dispositivos · notificaciones · unidades en lb.
+
+## Descartado del prototipo
+
+- **"Top 5 %" y "Consistente"** en los récords: necesitan datos de otros usuarios o criterios que no existen en una app local.
+- **Objetivos semanales configurables** de la tarjeta de racha: la racha se define como semanas seguidas cumpliendo los días por semana de tu rutina, sin objetivos aparte.
+- **Etiquetas de dato en fuente monoespaciada** de la pantalla Hoy: se usa Geist con cifras tabulares, como indica `DESIGN.md`.
 
 ## Registro de cambios
 
 - 2026-10-14 — Plan creado. Decididos: días rotativos, solo peso y reps, estilo oscuro minimalista con identidad propia.
+- 2026-10-14 — Se adopta el prototipo de Stitch ("Kinetic Volt") como identidad y referencia de pantallas, en lugar de la propuesta Disco/Barra. F1 reescrita; F4 rehecha según el entreno del prototipo (lista de ejercicios con series y casilla, en vez de pantalla de una serie); se añaden rango de repeticiones, día de descanso activo, ajustes y racha. Tailwind v4, Geist y Lucide empaquetados por funcionar sin conexión. Texto secundario en acero `#8E9AA8` por contraste.
+- 2026-10-14 — F1 construida según el prototipo. Desviaciones: cifras con coma decimal (82,5) en vez de punto, por ser una app en español; la cabecera muestra siempre la marca y el título de cada pantalla va en el contenido; el engranaje de la cabecera lleva a una pantalla de Ajustes en vez de abrir un modal.

@@ -1,8 +1,10 @@
+import { BrowserRouter } from 'react-router';
+import { AppRoutes } from './app/AppRoutes';
+
 export default function App() {
   return (
-    <main className="app">
-      <h1>Gym Routine</h1>
-      <p>Tu rutina, tus entrenos, tu progreso.</p>
-    </main>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
